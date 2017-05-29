@@ -10,8 +10,8 @@ bool StateLayer::init()
 	do {
 		CC_BREAK_IF(!Layer::init());
 		//add code here.
-		//auto hpShow = Hpshow::create();
-		//this->addChild(hpShow);
+		auto hpShow = HpShow::create();
+		this->addChild(hpShow);
 		ret = true;
 	} while (0);
 	return ret;
