@@ -1,9 +1,11 @@
 #include "ButtonLayer.h"
-//#include "Global.h"
+#include "Global.h"
 ButtonLayer::ButtonLayer()
-{}
+{
+}
 ButtonLayer::~ButtonLayer()
-{}
+{
+}
 bool ButtonLayer::init()
 {
 	bool ret = false;
@@ -100,7 +102,7 @@ bool ButtonLayer::onTouchBegan(Touch* touch, Event* event)
 
 void ButtonLayer::onTouchEnded(Touch* touch, Event* event)
 {
-	//global->hero->onStop();
+	global->hero->onStop();
 	Direction = Vec2(0, 0);
 }
 
@@ -111,5 +113,5 @@ void ButtonLayer::onTouchMoved(Touch* touch, Event* event)
 
 void ButtonLayer::updateHero(Touch* touch)
 {
-	//global->hero->onMove(Direction,1);
+	global->hero->onMove(Direction,1);
 }

@@ -23,15 +23,18 @@ public:
 	CC_SYNTHESIZE(float, curLifeValue, curLifeValue);
 	CC_SYNTHESIZE(float, LifeValue, LifeValue);
 	CC_SYNTHESIZE(ActionState, currActionState, CurrActionState);
-	CC_SYNTHESIZE(bool,allowMove,AllowMove); 
+	CC_SYNTHESIZE(bool, allowMove, AllowMove);
+	CC_SYNTHESIZE(Vec2, velocity, Velocity);
+	CC_SYNTHESIZE(float, damageStrength, DamageStrength);
 
 	//create animation list
-	CC_SYNTHESIZE(Action*, _idleAction, IdleAction);
-	CC_SYNTHESIZE(Action*, _walkAction, WalkAction);
-	CC_SYNTHESIZE(Action*, _hurtAction, HurtAction);
-	CC_SYNTHESIZE(Action*, _normalAttackAction, NormalAttackAction);
-	CC_SYNTHESIZE(Action*, _skillAttackAction, SkillAttackAction);
-	CC_SYNTHESIZE(Action*, _deadAction, DeadAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _idleAction, IdleAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _walkAction, WalkAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _hurtAction, HurtAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _normalAttackAction, NormalAttackAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _skillAttackAction, SkillAttackAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _deadAction, DeadAction);
+
 
 	//
 	BoundingBox createBoundingBox(Vec2 Original, Size size);
@@ -46,7 +49,6 @@ public:
 	virtual void runWalkAction();
 	virtual void runNormalAttackAction();
 	virtual void runSkillAction();
-	virtual void runUnderAttackAction();
 	virtual void runHurtAction();
 	virtual void runDeadAction();
 
@@ -55,7 +57,7 @@ public:
 
 	virtual void setPosition(const Vec2& Position);
 
-	virtual void updateBoxes();
+	void updateBoxes();
 
 protected:
 	virtual Animation* createNormalAnimation(const char* formatStr, int frameCount, int fps);
@@ -63,5 +65,4 @@ protected:
 
 private:
 	virtual bool ChangeState(ActionState actionState);
-	ActionState proActionState;
 };

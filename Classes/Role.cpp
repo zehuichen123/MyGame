@@ -9,7 +9,15 @@ Role::Role() :
 	_deadAction(NULL),
 	currActionState(ACTION_STATE_NONE)
 {};
-Role::~Role(){}
+Role::~Role()
+{
+	CC_SAFE_RELEASE_NULL(_idleAction);
+	CC_SAFE_RELEASE_NULL(_walkAction);
+	CC_SAFE_RELEASE_NULL(_normalAttackAction);
+	CC_SAFE_RELEASE_NULL(_skillAttackAction);
+	CC_SAFE_RELEASE_NULL(_hurtAction);
+	CC_SAFE_RELEASE_NULL(_deadAction);
+}
 
 void Role::runIdleAction()
 {
@@ -30,6 +38,7 @@ void Role::runNormalAttackAction()
 {
 	if (ChangeState(ACTION_STATE_NORMAL_ATTACK))
 	{
+		this->setAllowMove(false);
 		this->runAction(_normalAttackAction);
 	}
 }
@@ -38,6 +47,7 @@ void Role::runSkillAction()
 {
 	if (ChangeState(ACTION_STATE_SKILL_ATTACK))
 	{
+		this->setAllowMove(false);
 		this->runAction(_skillAttackAction);
 	}
 }
@@ -65,9 +75,7 @@ Animation* Role::createAttackAnimation(const char* formatStr,int FrameCountBegin
 	{
 		const char* imgName = String::createWithFormat(formatStr, i)->getCString();
 		SpriteFrame* pFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(imgName);
-		//pFrames.insert(i-FrameCountBegin,pFrame);
-		//if i use pushBack(),what will happen?
-		pFrames.pushBack(pFrame);
+		pFrames.insert(i - FrameCountBegin, pFrame);
 	}
 	return Animation::createWithSpriteFrames(pFrames, 1.0f / fps);
 }
@@ -79,7 +87,7 @@ Animation* Role::createNormalAnimation(const char* formatStr, int FrameCount, in
 	{
 		const char* imgName = String::createWithFormat(formatStr, i)->getCString();
 		SpriteFrame* pFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(imgName);
-		pFrames.pushBack(pFrame);
+		pFrames.insert(i , pFrame);
 	}
 	return Animation::createWithSpriteFrames(pFrames, 1.0f / fps);
 }

@@ -1,5 +1,8 @@
 #include "OperateLayer.h"
-OperateLayer::OperateLayer(){}
+OperateLayer::OperateLayer()
+{
+	global->operateLayer = this;
+}
 OperateLayer::~OperateLayer(){}
 bool OperateLayer::init()
 {
