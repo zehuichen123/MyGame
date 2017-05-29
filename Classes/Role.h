@@ -23,6 +23,7 @@ public:
 	CC_SYNTHESIZE(float, curLifeValue, curLifeValue);
 	CC_SYNTHESIZE(float, LifeValue, LifeValue);
 	CC_SYNTHESIZE(ActionState, currActionState, CurrActionState);
+	CC_SYNTHESIZE(bool,allowMove,AllowMove); 
 
 	//create animation list
 	CC_SYNTHESIZE(Action*, _idleAction, IdleAction);

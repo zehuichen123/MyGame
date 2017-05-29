@@ -17,8 +17,17 @@ bool GameLayer::init()
 		auto mapLayer = MapLayer::create();
 		this->addChild(mapLayer, -100);
 
-		
+		this->addHero();
 		ret = true;
 	} while (0);
 	return ret;
+}
+
+void GameLayer::addHero()
+{
+	_hero = Hero::create();
+	_hero->setPosition(visibleOrigin + Vec2(100, 50));
+	_hero->runIdleAction();
+	//_hero->setZOrder();
+	this->addChild(_hero);
 }

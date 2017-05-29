@@ -130,6 +130,6 @@ void Role::setPosition(const Vec2 &position)
 
 CallFunc* Role::createIdleCallBackFunc()
 {
-	//this->setAllowMove(true);
-	return CallFunc::create(CC_CALLBACK_0(Role::runIdleAction(), this));
+	this->setAllowMove(true);
+	return CallFunc::create(CC_CALLBACK_0(Role::runIdleAction, this));
 }
