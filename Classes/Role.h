@@ -35,16 +35,11 @@ public:
 	CC_SYNTHESIZE_RETAIN(Action*, _skillAttackAction, SkillAttackAction);
 	CC_SYNTHESIZE_RETAIN(Action*, _deadAction, DeadAction);
 
-
-	//
 	BoundingBox createBoundingBox(Vec2 Original, Size size);
 	CC_SYNTHESIZE(BoundingBox, _bodyBox, BodyBox);
 	CC_SYNTHESIZE(BoundingBox, _hitBox, HitBox);
-	
-public:
-	//execute after executing actions
-	void Role::callBackAction(Node* pSender);
 
+public:
 	virtual void runIdleAction();
 	virtual void runWalkAction();
 	virtual void runNormalAttackAction();

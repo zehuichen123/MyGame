@@ -21,12 +21,12 @@ bool Hero::init()
 
 		Animation *attackAnima1 = this->createAttackAnimation("boy_attack_00_%02d.png", 0, 4, 10);
 		Animation *attackAnima2 = this->createAttackAnimation("boy_attack_00_%02d.png", 4, 8, 15);
-		/*this->setNormalAttack(Sequence::create(
+		this->setNormalAttackAction(Sequence::create(
 			Animate::create(attackAnima1),
 			CallFuncN::create(CC_CALLBACK_1(Hero::attackCallBackAction, this)),
 			Animate::create(attackAnima2),
 			Role::createIdleCallBackFunc(),
-			NULL));*/
+			NULL));
 
 		Animation *gurtAnim = this->createNormalAnimation("boy_hurt_%02d.png", 2, 4);
 		this->setHurtAction(Sequence::create(
@@ -67,30 +67,32 @@ void Hero::onAttack()
 	this->runNormalAttackAction();
 }
 
-void Hero::updateSelf()//刷新自己
+void Hero::updateSelf()
 {
 	if (this->getCurrActionState() == ACTION_STATE_WALK)
 	{
 		Vec2 currentP = this->getPosition();				
 		Vec2 expectP = currentP + this->getVelocity();	
 		Vec2 actualP = expectP;			
-		/*
+
+		//limit the hero in the ground
 		float mapWidth = global->tileMap->getContentSize().width;	
-		float herofat = this->getBodyBox().actual.size.width / 2;		
-																		
-																		
+		float herofat = this->getBodyBox().actual.size.width / 2;																															
 		float maptileHeight = global->tileMap->getTileSize().height;
 		if (expectP.y < 0 || expectP.y > maptileHeight * 3)
 		{
 			actualP.y = currentP.y;
 		}
-		//不能跑出地图外面
 		if (expectP.x < herofat || expectP.x >= mapWidth - herofat)
 		{
-			//if(!global->tileAllowMove(expectP))
 			actualP.x = currentP.x;
-		}*/
+		}
 		this->setPosition(actualP);
 		this->setLocalZOrder(Director::getInstance()->getVisibleSize().height - this->getPositionY());
 	}
+}
+
+void Hero::attackCallBackAction(Ref* pSender)
+{
+
 }

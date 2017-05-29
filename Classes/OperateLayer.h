@@ -7,4 +7,6 @@ public:
 	OperateLayer();
 	~OperateLayer();
 	virtual bool init();
+	CREATE_FUNC(OperateLayer);
+	void attackButton(Ref* pSender);
 };
