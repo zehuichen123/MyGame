@@ -12,7 +12,7 @@ bool OperateLayer::init()
 		CC_BREAK_IF(!Layer::init());
 		//code
 		auto visibleSize = Director::getInstance()->getVisibleSize();
-
+		auto WinSize = Director::getInstance()->getWinSize();
 		//add a attack button
 		auto attackItem = MenuItemImage::create("attackbuttonNormal.png", "attackbuttonSelected.png",
 			CC_CALLBACK_1(OperateLayer::attackButton, this));
@@ -28,6 +28,22 @@ bool OperateLayer::init()
 		skillA->setPosition(attackItem->getPosition() - Vec2(50, 0));
 		this->addChild(skillA);
 
+		
+		auto pause = Button::create("pause.png");
+		pause->setPosition(WinSize - pause->getContentSize()/2);
+		pause->addTouchEventListener([=](Ref* pSender, Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case cocos2d::ui::Widget::TouchEventType::ENDED:
+			{
+				addChild(PopupLayer::create(GamePause::create()));
+				Director::getInstance()->pause();
+			}
+			break;
+			}
+		});
+		addChild(pause);
 		ret = true;
 	} while (0);
 	return ret;
