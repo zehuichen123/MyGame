@@ -14,6 +14,6 @@ public:
 	void onAttack();
 	void updateSelf();
 	void Hero::attackCallBackAction(Ref* pSender);
-	//void Hero::FontsCallBackAction(Node* pSender);
-	//void Hero::damageDisplay(int number, Vec2 point);
+	void Hero::FontsCallBackAction(Node* pSender);
+	void Hero::damageDisplay(int number, Vec2 point);
 };

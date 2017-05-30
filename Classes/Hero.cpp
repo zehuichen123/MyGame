@@ -28,6 +28,15 @@ bool Hero::init()
 			Role::createIdleCallBackFunc(),
 			NULL));
 
+		Animation *chageattAnim1 = this->createAttackAnimation("boy_change_attack_%02d.png", 5, 7, 10);
+		Animation *chageattAnim2 = this->createAttackAnimation("boy_change_attack_%02d.png", 7, 12, 15);
+		this->setSkillAttackAction(Sequence::create(
+			Animate::create(chageattAnim1),
+			//CallFuncN::create(CC_CALLBACK_1(Hero::attackCallBackAction,this)),
+			Animate::create(chageattAnim2),
+			Role::createIdleCallBackFunc(),
+			NULL));
+
 		Animation *gurtAnim = this->createNormalAnimation("boy_hurt_%02d.png", 2, 4);
 		this->setHurtAction(Sequence::create(
 			Animate::create(gurtAnim),
@@ -94,5 +103,27 @@ void Hero::updateSelf()
 
 void Hero::attackCallBackAction(Ref* pSender)
 {
-
+	__Array* pEnemies = global->enemies;
+	Ref* enemyObj = NULL;
+	CCARRAY_FOREACH(pEnemies, enemyObj)
+	{
+		Enemy *pEnemy = (Enemy*)enemyObj;
+		if (fabsf(this->getPosition().y - pEnemy->getPosition().y) < 20)
+		{
+			Rect attackReck = _hitBox.actual;//Ó¢ÐÛ¹¥»÷ÇøÓò
+			Rect hurtReck = pEnemy->getBodyBox().actual;;//¹ÖÎïÊÜÉËÇøÓò
+			if (attackReck.intersectsRect(hurtReck))
+			{
+				pEnemy->setAllowMove(false);
+				pEnemy->runHurtAction();
+				int damage = random(this->getDamageStrength()*0.7, this->getDamageStrength()*1.3);
+				pEnemy->setcurLifeValue(pEnemy->getcurLifeValue() - damage);
+				if (pEnemy->getcurLifeValue() <= 0)
+				{
+					pEnemy->runDeadAction();
+					pEnemy->setBodyBox(createBoundingBox(Vec2::ZERO, Size::ZERO));
+				}
+			}
+		}
+	}
 }

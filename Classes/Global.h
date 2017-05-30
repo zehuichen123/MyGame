@@ -7,6 +7,7 @@
 #include "StateLayer.h"
 #include "OperateLayer.h"
 #include "Hero.h"
+#include "Enemy.h"
 USING_NS_CC;
 
 //declare these class,or will report error
@@ -14,6 +15,7 @@ class GameLayer;
 class StateLayer;
 class OperateLayer;
 class Hero;
+class Enemy;
 
 class Global :public Singleton<Global> {
 public:
@@ -24,6 +26,7 @@ public:
 	GameLayer* gameLayer;
 	OperateLayer* operateLayer;
 	StateLayer* stateLayer;
+	__Array* enemies;
 	TMXTiledMap* tileMap;
 };
 #define global Global::instance()

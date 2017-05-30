@@ -23,7 +23,7 @@ bool GameLayer::init()
 		auto map = MapLayer::create();
 		this->addChild(map, -100);
 		this->scheduleUpdate();
-
+		global->enemies = m_pEnemies;
 		ret = true;
 	} while (0);
 	return ret;

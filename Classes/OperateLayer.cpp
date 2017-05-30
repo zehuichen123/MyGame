@@ -1,5 +1,4 @@
 #include "OperateLayer.h"
-#include "Global.h"
 
 OperateLayer::OperateLayer() {
 	//auto global = Global::instance();
@@ -24,6 +23,10 @@ bool OperateLayer::init()
 		auto menu = Menu::create(attackItem, NULL);
 		menu->setPosition(Vec2::ZERO);
 		this->addChild(menu, 100);
+
+		auto skillA = SkillButton::create("SkillButton.png", 3.0f);
+		skillA->setPosition(attackItem->getPosition() - Vec2(50, 0));
+		this->addChild(skillA);
 
 		ret = true;
 	} while (0);
