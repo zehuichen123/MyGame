@@ -35,7 +35,7 @@ void GameLayer::update(float dt)
 }
 void GameLayer::updateHero(float dt)
 {
-	m_pHero->updateSelf();//×Ô¸üÐÂ×´Ì¬
+	m_pHero->updateSelf();
 }
 void GameLayer::addHero()
 {

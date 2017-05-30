@@ -143,7 +143,7 @@ void Enemy::attackCallBackAction(Node* pSender)
 	if (attackReck.intersectsRect(hurtReck))
 	{
 		t_hero->setAllowMove(false);
-		int damage = this->getDamageStrength()*0.2f;
+		int damage = this->getDamageStrength()*0.5f;
 		t_hero->runHurtAction();
 		t_hero->setcurLifeValue(t_hero->getcurLifeValue() - damage);
 	}

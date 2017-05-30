@@ -38,7 +38,17 @@ bool SkillButton::init(const char* Normal,const char* Click,
 		MenuSkill->setPosition(Vec2::ZERO);
 		addChild(MenuSkill, -100);
 
-		_Mask = Sprite::create(Mask);
+		if (Normal == Mask)
+		{
+			_Mask = Sprite::create();
+			_Mask->setTexture(Normal);
+			_Mask->setColor(Color3B(0, 0, 0));
+			_Mask->setOpacity(100);
+		}
+		else
+		{
+			_Mask = Sprite::create(Mask);
+		}
 		_Mask->setPosition(Vec2::ZERO);
 		_Mask->setVisible(false);
 		addChild(_Mask, 0);
@@ -49,6 +59,8 @@ bool SkillButton::init(const char* Normal,const char* Click,
 		_ProgressTimer->setVisible(false);
 		addChild(_ProgressTimer, 100);
 
+		this->setCDTime(CDTime);
+		CdTime = CDTime;
 		ret = true;
 	} while (0);
 	return ret;

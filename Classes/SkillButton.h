@@ -31,12 +31,10 @@ public:
 	CC_SYNTHESIZE(float, _cdTime, CDTime);
 	void ClickCallBack(Ref* obj);
 	void CoolDownCallBack(Node* node);
-
+	void CoolDownReduce(float dt);
 private:
 	bool init(const char* Normal, const char* Click,
 		const char* Mask, float CDTime);
-
-	void CoolDownReduce(float dt);
 
 private:
 	MenuItemImage* _itemSkillButton;
