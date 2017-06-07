@@ -1,6 +1,8 @@
 #pragma once
 #include "cocos2d.h"
 #include "BaseLayer.h"
+#include "coderNameLayer.h"
+#include "defenderGameLayer.h"
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -17,4 +19,6 @@ private:
 	bool setUpdateView();
 	void videoCallBack(Ref* pSender);
 	void clickCallBack(Ref* pSender);
+	void coderNameCallBack(Ref* pSender);
+	void playCallBack(Ref * pSender);
 };

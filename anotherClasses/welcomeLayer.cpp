@@ -44,6 +44,20 @@ bool welcomeLayer::setUpdateView()
 		this->addChild(SpriteBg,1);
 		//CCLOG("BACKGROUND");
 
+
+		auto coderName = MenuItemSprite::create(
+			Sprite::create("gmme/coder_up.png"),
+			Sprite::create("gmme/coder_down.png"),
+			CC_CALLBACK_1(welcomeLayer::coderNameCallBack, this));
+		coderName->setPosition(Point(getWinSize().width*0.78f, getWinSize().height*0.21f));
+
+		auto playButton = MenuItemSprite::create(
+			Sprite::create("gmme/star_up.png"),
+			Sprite::create("gmme/star_down.png"),
+			CC_CALLBACK_1(welcomeLayer::playCallBack, this));
+		//CC_BREAK_IF(!playButton);
+		playButton->setPosition(Point(getWinSize().width*0.83f, getWinSize().height*0.75f));
+
 		auto musicOnMenuItem = MenuItemImage::create(
 			"gmme/button_sound_on.png",
 			"gmme/button_sound_on.png");
@@ -57,7 +71,7 @@ bool welcomeLayer::setUpdateView()
 										NULL);
 		musicToggleMenuItem->setPosition(Point(getWinSize().width*0.15f, getWinSize().height*0.55f));
 
-		Menu* pMenu = CCMenu::create(musicToggleMenuItem, NULL);
+		Menu* pMenu = CCMenu::create(musicToggleMenuItem,coderName,playButton, NULL);
 		CC_BREAK_IF(!pMenu);
 		pMenu->setPosition(Vec2::ZERO);
 		this->addChild(pMenu, 2);
@@ -78,4 +92,16 @@ void welcomeLayer::videoCallBack(Ref* pSender)
 		SimpleAudioEngine::getInstance()->playBackgroundMusic("music/dt.mp3");
 	}
 	
+}
+
+void welcomeLayer::coderNameCallBack(Ref* pSender)
+{
+	auto scene = coderNameLayer::createScene();
+	//this->removeAllChildren();
+	Director::getInstance()->replaceScene(TransitionFlipX::create(0.5f, scene));
+}
+void welcomeLayer::playCallBack(Ref* pSender)
+{
+	auto scene = defenderGameLayer::createScene();
+	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, scene));
 }
