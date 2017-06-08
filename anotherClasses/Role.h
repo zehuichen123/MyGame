@@ -1,0 +1,35 @@
+#pragma once
+#include "cocos2d.h"
+USING_NS_CC;
+class Role :public Sprite {
+public:
+	Role();
+	~Role();
+
+	//set some characters to role
+	CC_SYNTHESIZE(float, curLifeValue, curLifeValue);
+	CC_SYNTHESIZE(float, LifeValue, LifeValue);
+	//CC_SYNTHESIZE(bool, allowMove, AllowMove);
+	CC_SYNTHESIZE(Vec2, velocity, Velocity);
+	CC_SYNTHESIZE(float, damageStrength, DamageStrength);
+	CC_SYNTHESIZE(float, defense, Defense);
+	CC_SYNTHESIZE(int, monType, MonType);
+	CC_SYNTHESIZE(float, attackRange, AttackRange);
+	CC_SYNTHESIZE(float, weaponHurt, WeaponHurt);
+
+	//create animation list
+	CC_SYNTHESIZE_RETAIN(Action*, _walkAction, WalkAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _normalAttackAction, NormalAttackAction);
+	CC_SYNTHESIZE_RETAIN(Action*, _deadAction, DeadAction);
+
+
+public:
+	//virtual void runIdleAction();
+	
+
+
+protected:
+	virtual Animation* createNormalAnimation(const char* formatStr, int frameCount, int fps);
+	virtual Animation* createAttackAnimation(const char* formatStr, int frameCountBegin,int frameCountEnd, int fps);
+
+};

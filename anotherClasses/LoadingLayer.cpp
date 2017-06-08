@@ -9,7 +9,7 @@ LoadingLayer::~LoadingLayer()
 
 Scene* LoadingLayer::createScene() 
 {
-	CCScene* scene = CCScene::create();
+	Scene* scene = CCScene::create();
 	LoadingLayer* layer = LoadingLayer::create();
 	scene->addChild(layer);
 	return scene;
@@ -55,8 +55,6 @@ bool LoadingLayer::setUpdateView()
 {
 	bool ret = false;
 	do {
-		//auto visibleSize = Director::getInstance()->getVisibleSize();
-		//auto visibleOrigin = Director::getInstance()->getVisibleOrigin();
 		float vecx = getWinSize().width / 2 +getWinOrigin().x;
 		float vecy = getWinSize().height / 2 + getWinOrigin().y;
 		auto backGround = Sprite::create("gmbg/loadingbg.png");
