@@ -5,6 +5,7 @@ Scene* defenderGameLayer::createScene()
 {
 	Scene* scene = Scene::create();
 	defenderGameLayer* layer = defenderGameLayer::create();
+	global->GdefenderGameLayer = layer;
 	scene->addChild(layer);
 	return scene;
 }
@@ -41,7 +42,7 @@ bool defenderGameLayer::init()
 	do {
 		CC_BREAK_IF(!Layer::init());
 		CC_BREAK_IF(!setUpdateView());
-		schedule(schedule_selector(defenderGameLayer::updateCustom), 0.4f, kRepeatForever, 0);
+		
 		ret = true;
 	} while (0);
 	return ret;
@@ -68,6 +69,35 @@ bool defenderGameLayer::setUpdateView()
 		bulletSample->setAnchorPoint(Point(0, 0.5));
 		bulletSample->setPosition(weapon->getPosition());
 		this->addChild(bulletSample);
+
+		auto pause = MenuItemSprite::create(
+			Sprite::create("gmme/pause_button.png"),
+			Sprite::create("gmme/pause_button.png"),
+			CC_CALLBACK_1(defenderGameLayer::pauseCallBack, this));
+
+		pause->setAnchorPoint(Point(0, 1));
+		pause->setPosition(20, getWinSize().height - 20);
+
+		auto _Menu = Menu::create(pause, NULL);
+		//CC_BREAK_IF(!_Menu);
+		_Menu->setPosition(Point::ZERO);
+		this->addChild(_Menu);
+
+		schedule(schedule_selector(defenderGameLayer::updateCustom), 0.4f, kRepeatForever, 0);
+		this->schedule(schedule_selector(defenderGameLayer::addEnemy), 1.0f);
+
+		_bullet = __Array::create();
+		_bullet->retain();
+		_enemy = __Array::create();
+		_enemy->retain();
+		//_Array* toDeleteEnemy;
+		toDeleteEnemy = __Array::create();
+		toDeleteEnemy->retain();
+		//__Array* toDeleteBullet;
+		toDeleteBullet = __Array::create();
+		toDeleteBullet->retain();
+
+		this->scheduleUpdate();
 		ret = true;
 	} while (0);
 	return ret;
@@ -84,10 +114,11 @@ void defenderGameLayer::onTouchEnded(Touch* touch, Event* event)
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto bullet = Sprite::create("Game/bullet.png");
+	_bullet->addObject(bullet);
 	bullet->setAnchorPoint(Point(0, 0.5));
 	bullet->setRotation(rota);
 	bullet->setPosition(weapon->getPosition());
-	
+
 	int offX = touchPoint.x - bullet->getPosition().x;
 	int offY = touchPoint.y - bullet->getPosition().y;
 
@@ -121,7 +152,8 @@ void defenderGameLayer::onTouchEnded(Touch* touch, Event* event)
 void defenderGameLayer::bulletMoveFinished(Ref* pSender)
 {
 	Sprite* bullet = (Sprite*)pSender;
-	this->removeChild(bullet);
+	//this->removeChild(bullet);
+	_bullet->removeObject(bullet);
 }
 
 float defenderGameLayer::getRotaSize(Touch* touch)
@@ -135,7 +167,73 @@ float defenderGameLayer::getRotaSize(Touch* touch)
 	float rota = -(hud*(180 / PI));
 	return rota;
 }
+
 void defenderGameLayer::updateCustom(float dt)
 {
 	bulletSample->setVisible(true);
+}
+
+void defenderGameLayer::addEnemy(float dt)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	auto target = Enemy::create();
+	target->Enemy::Move();
+	_enemy->addObject(target);
+	//target->setPosition(getWinCenter());
+	this->addChild(target);
+
+}
+
+void defenderGameLayer::update(float dt)
+{
+	for (int i = 0; i < _bullet->count(); i++)
+	{
+		bool flag = true;
+		auto bullet = (Sprite*)_bullet->objectAtIndex(i);
+		auto bulletRect = bullet->getBoundingBox();
+		for (int j = 0; j < _enemy->count(); j++)
+		{
+			auto enemy = (Enemy*)_enemy->objectAtIndex(j);
+			auto enemyRect = enemy->getBoundingBox();
+			if (bulletRect.intersectsRect(enemyRect))
+			{
+				bool live = enemy->Enemy::beAttacked();
+				if (!live)
+				{
+					toDeleteEnemy->addObject(enemy);
+				}
+				if (flag)
+				{
+					toDeleteBullet->addObject(bullet);
+					flag = false;
+				}
+			}
+			
+		}
+		for (int p = 0; p < toDeleteEnemy->count(); p++)
+		{
+			auto EnemyToDelete = toDeleteEnemy->objectAtIndex(p);
+			_enemy->removeObject(EnemyToDelete);
+			//this->removeChild((Node*)EnemyToDelete);
+		}
+		toDeleteEnemy->removeAllObjects();
+	}
+	for (int p = 0; p<toDeleteBullet->count(); p++)
+	{
+		auto BulletToDelete = toDeleteBullet->objectAtIndex(p);
+		_bullet->removeObject(BulletToDelete);
+		this->removeChild((Node*)BulletToDelete);
+	}
+	toDeleteBullet->removeAllObjects();
+}
+
+void defenderGameLayer::pauseCallBack(Ref* pSender)
+{
+	//auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto pauseLayer = GamePause::create();
+	pauseLayer->setAnchorPoint(Point(0.5, 0.5));
+	//pauseLayer->setPosition(getWinCenter());
+	this->addChild(PopupLayer::create(pauseLayer),4);
+	//Director::getInstance()->pause();
+	//this->addChild(pauseLayer);
 }

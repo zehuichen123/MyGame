@@ -75,7 +75,7 @@ void Enemy::runDeadAction()
 }
 void Enemy::deadCallBackAction(Node* pSender)
 {
-	//this->setVisible(false);
+	this->setVisible(false);
 	global->GdefenderGameLayer->removeChild(this, true);
 	
 }
@@ -114,19 +114,6 @@ void Enemy::Move()
 	int rangeY = maxY - minY;
 	int actualY = (CCRANDOM_0_1() * rangeY) + minY;
 	this->setPosition(Point(visibleSize.width + this->getContentSize().width / 2, actualY));
-
-	
-	// Create the this slightly off-screen along the right edge,
-	// and along a random position along the Y axis as calculated above
-
-	/*
-	int minDuration = 2.0;
-	int maxDuration = 4.0;
-	int rangeDuration = maxDuration - minDuration;
-	int actualDuration = (CCRANDOM_0_1() * rangeDuration) + minDuration;
-
-	// Determine speed of the this
-	*/
 	
 	auto actionMove = MoveTo::create(actualDuration,
 		Point(visibleSize.width * 3 / 16, actualY));
@@ -142,9 +129,6 @@ void Enemy::Move()
 
 	this->runWalkAction();
 	this->runAction(Sequence::create(actionMove, actionMoveDone, NULL));
-	
-	//this->stopAction(actionWalk);
-	//this->runNormalAttackAction();
 }
 void Enemy::monsterMoveFinished(Ref* pSender)
 {

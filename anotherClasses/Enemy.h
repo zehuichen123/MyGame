@@ -17,14 +17,10 @@ public:
 	void updateSelf();
 	void update(float dt);
 	CREATE_FUNC(Enemy);
-	
-	CC_SYNTHESIZE(Vec2, m_moveDirection, MoveDirection);
-	CC_SYNTHESIZE(float, m_attackArea, AttackArea)
 
 	CC_SYNTHESIZE(float, actualDuration, ActualDuration);
 	
 	bool beAttacked();
-	Rect convertNowRect();
 
 	void runWalkAction();
 	void runNormalAttackAction();
