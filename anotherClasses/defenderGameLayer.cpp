@@ -4,9 +4,12 @@
 Scene* defenderGameLayer::createScene()
 {
 	Scene* scene = Scene::create();
+	global->Gscene = scene;
+	auto skillButton = skillButtonLayer::create();
 	defenderGameLayer* layer = defenderGameLayer::create();
 	global->GdefenderGameLayer = layer;
 	scene->addChild(layer);
+	scene->addChild(skillButton);
 	return scene;
 }
 void defenderGameLayer::onEnter()
@@ -74,6 +77,8 @@ bool defenderGameLayer::setUpdateView()
 			Sprite::create("gmme/pause_button.png"),
 			Sprite::create("gmme/pause_button.png"),
 			CC_CALLBACK_1(defenderGameLayer::pauseCallBack, this));
+		pause->setAnchorPoint(Point(0, 1));
+		pause->setPosition(20, getWinSize().height - 20);
 
 		auto bloodBg = Sprite::create("game/panelblood.png");
 		bloodBg->setAnchorPoint(Point(0, 0));
@@ -87,8 +92,7 @@ bool defenderGameLayer::setUpdateView()
 		//blood->setScale(1.3);
 		bloodBg->addChild(blood);
 
-		pause->setAnchorPoint(Point(0, 1));
-		pause->setPosition(20, getWinSize().height - 20);
+		
 
 		auto _Menu = Menu::create(pause, NULL);
 		//CC_BREAK_IF(!_Menu);
@@ -115,9 +119,6 @@ bool defenderGameLayer::setUpdateView()
 	return ret;
 }
 
-void defenderGameLayer::onTouchCancelled(Touch* touch, Event* event)
-{
-}
 void defenderGameLayer::onTouchEnded(Touch* touch, Event* event)
 {
 	auto rota = this->getRotaSize(touch);
@@ -192,7 +193,7 @@ void defenderGameLayer::addEnemy(float dt)
 	target->Enemy::Move();
 	_enemy->addObject(target);
 	//target->setPosition(getWinCenter());
-	this->addChild(target);
+	this->addChild(target,50);
 
 }
 
@@ -241,11 +242,8 @@ void defenderGameLayer::update(float dt)
 
 void defenderGameLayer::pauseCallBack(Ref* pSender)
 {
-	//auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto pauseLayer = GamePause::create();
 	pauseLayer->setAnchorPoint(Point(0.5, 0.5));
 	//pauseLayer->setPosition(getWinCenter());
 	this->addChild(PopupLayer::create(pauseLayer),4);
-	//Director::getInstance()->pause();
-	//this->addChild(pauseLayer);
 }

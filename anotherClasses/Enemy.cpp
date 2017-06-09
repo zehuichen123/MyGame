@@ -46,7 +46,10 @@ bool Enemy::init()
 		this->setNormalAttackAction(RepeatForever::create(Animate::create(attackAnim)));
 
 		Animation *deadAnim = this->createNormalAnimation("dutu-3%d.png", 8, 8);
-		this->setDeadAction(Sequence::create(Animate::create(deadAnim), Blink::create(3, 9), CallFuncN::create(CC_CALLBACK_1(Enemy::deadCallBackAction, this)), NULL));
+		this->setDeadAction(Sequence::create(
+						Animate::create(deadAnim),
+						Blink::create(3, 9),
+						CallFuncN::create(CC_CALLBACK_1(Enemy::deadCallBackAction, this)), NULL));
 		//this->runAction(this->getDeadAction());
 
 		CC_BREAK_IF(!Enemy::setUpdateView());

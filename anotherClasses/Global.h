@@ -17,7 +17,7 @@ public:
 	~Global();
 
 	defenderGameLayer* GdefenderGameLayer;
-
+	Scene* Gscene;
 };
 #define global Global::instance()
 #endif

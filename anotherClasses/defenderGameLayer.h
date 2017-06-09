@@ -6,6 +6,8 @@
 #include "GamePause.h"
 #include "PopupLayer.h"
 #include "cityBloodSprite.h"
+#include "skillButtonLayer.h"
+
 USING_NS_CC;
 class defenderGameLayer :public BaseLayer {
 public:
@@ -20,7 +22,6 @@ public:
 	//virtual void onTouchMoved(Touch* touch, Event* event);
 	void onTouchEnded(Touch* touch, Event* event);
 	void bulletMoveFinished(Ref * pSender);
-	virtual void onTouchCancelled(Touch* touch, Event* event);
 	float getRotaSize(Touch* touch);
 	void updateCustom(float dt);
 	static Scene* createScene();

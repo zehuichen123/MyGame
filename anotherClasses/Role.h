@@ -25,11 +25,7 @@ public:
 
 public:
 	//virtual void runIdleAction();
-	
-
-
-protected:
-	virtual Animation* createNormalAnimation(const char* formatStr, int frameCount, int fps);
-	virtual Animation* createAttackAnimation(const char* formatStr, int frameCountBegin,int frameCountEnd, int fps);
+	static Animation* createNormalAnimation(const char* formatStr, int frameCount, int fps);
+	static Animation* createAttackAnimation(const char* formatStr, int frameCountBegin,int frameCountEnd, int fps);
 
 };
