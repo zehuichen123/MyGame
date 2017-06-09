@@ -5,6 +5,7 @@
 #include "Global.h"
 #include "GamePause.h"
 #include "PopupLayer.h"
+#include "cityBloodSprite.h"
 USING_NS_CC;
 class defenderGameLayer :public BaseLayer {
 public:

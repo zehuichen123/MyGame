@@ -75,6 +75,18 @@ bool defenderGameLayer::setUpdateView()
 			Sprite::create("gmme/pause_button.png"),
 			CC_CALLBACK_1(defenderGameLayer::pauseCallBack, this));
 
+		auto bloodBg = Sprite::create("game/panelblood.png");
+		bloodBg->setAnchorPoint(Point(0, 0));
+		bloodBg->setPosition(Point::ZERO);
+		bloodBg->setScale(1.3);
+		this->addChild(bloodBg,5);
+
+		auto blood = cityBloodSprite::create();
+		//blood->setAnchorPoint(Point(0, 0));
+		blood->setPosition(Point::ZERO);
+		//blood->setScale(1.3);
+		bloodBg->addChild(blood);
+
 		pause->setAnchorPoint(Point(0, 1));
 		pause->setPosition(20, getWinSize().height - 20);
 
