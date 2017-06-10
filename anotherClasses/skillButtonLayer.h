@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "magicSkillButton.h"
+#include "Global.h"
 USING_NS_CC;
 class skillButtonLayer:public Layer {
 public:

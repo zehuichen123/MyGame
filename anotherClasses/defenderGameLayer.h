@@ -1,8 +1,8 @@
 #pragma once
 #include "cocos2d.h"
-#include "BaseLayer.h"
+//#include "BaseLayer.h"
 #include "Enemy.h"
-#include "Global.h"
+//#include "Global.h"
 #include "GamePause.h"
 #include "PopupLayer.h"
 #include "cityBloodSprite.h"

@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "Singleton.h"
 #include "defenderGameLayer.h"
-#include "Enemy.h"
+//#include "Enemy.h"
 USING_NS_CC;
 
 //declare these class,or will report error
@@ -18,6 +18,8 @@ public:
 
 	defenderGameLayer* GdefenderGameLayer;
 	Scene* Gscene;
+	Sprite* Gmatrix;
+	//bool Gavail;
 };
 #define global Global::instance()
 #endif

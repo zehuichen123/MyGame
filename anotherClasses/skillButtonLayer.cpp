@@ -13,11 +13,7 @@ bool skillButtonLayer::init()
 		auto visibleSize = Director::getInstance()->getVisibleSize();
 
 		CC_BREAK_IF(!Layer::init());
-
-		matrix = Sprite::create("Game/MagicMatrix.png");
-		matrix->setVisible(false);
-		matrix->setPosition(visibleSize.width / 6 * 8, visibleSize.height / 15);
-		this->addChild(matrix);
+		
 
 		cdButtonOne = magicSkillButton::create("abc");
 		cdButtonTwo = magicSkillButton::create("abg");
@@ -36,6 +32,7 @@ bool skillButtonLayer::init()
 void skillButtonLayer::onEnter()
 {
 	Layer::onEnter();
+	matrix = global->Gmatrix;
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [=](Touch* touch, Event* event) {
 		auto touchPos = touch->getLocation();
@@ -53,18 +50,18 @@ void skillButtonLayer::onEnter()
 			cdButtonThree->getPosition().y - 40,
 			80, 80
 		};
-		if(Button1Rect.containsPoint(touchPos))
+		if(Button1Rect.containsPoint(touchPos)&&cdButtonOne->getAvail()==true)
 		{
 			CCLOG("fjdsljf");
 			this->type = 1;
 			return true;
 		}
-		else if (Button2Rect.containsPoint(touchPos))
+		else if (Button2Rect.containsPoint(touchPos)&&cdButtonTwo->getAvail()==true)
 		{
 			this->type = 2;
 			return true;
 		}
-		else if (Button3Rect.containsPoint(touchPos))
+		else if (Button3Rect.containsPoint(touchPos)&&cdButtonThree->getAvail()==true)
 		{
 			this->type = 3;
 			return true;
@@ -72,6 +69,7 @@ void skillButtonLayer::onEnter()
 		return false;
 	};
 	listener->onTouchMoved = [=](Touch* touch, Event* event) {
+		
 		CCLOG("fdslkfjlf");
 		matrix->setVisible(true);
 		//auto action = MoveTo::create(0.05f, touch->getLocation());
