@@ -133,11 +133,17 @@ void magicSkillButton::runSkillAnimationC(Layer* layer,Point point)
 		monst->setPosition(point - Point(200, 200));
 		layer->addChild(monst, 3);
 
+		this->detected(point);
 		//this->avail = false;
 		this->cdBar->setPercentage(0);
 		this->runCDAnimation();
 		monst->runAction(pse);
 	}
+}
+
+void magicSkillButton::detected(Point point)
+{
+	
 }
 
 void magicSkillButton::skillCallBack(Node* pSender)

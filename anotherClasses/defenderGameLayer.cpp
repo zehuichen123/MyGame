@@ -112,6 +112,7 @@ bool defenderGameLayer::setUpdateView()
 		_bullet->retain();
 		_enemy = __Array::create();
 		_enemy->retain();
+		global->Genemy = _enemy;
 		//_Array* toDeleteEnemy;
 		toDeleteEnemy = __Array::create();
 		toDeleteEnemy->retain();

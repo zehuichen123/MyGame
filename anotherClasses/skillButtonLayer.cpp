@@ -52,7 +52,6 @@ void skillButtonLayer::onEnter()
 		};
 		if(Button1Rect.containsPoint(touchPos)&&cdButtonOne->getAvail()==true)
 		{
-			CCLOG("fjdsljf");
 			this->type = 1;
 			return true;
 		}
@@ -90,24 +89,51 @@ void skillButtonLayer::onTouchEnded(Touch* touch, Event* event)
 {
 	//auto action = MoveTo::create(0.05f, touch->getLocation());
 	//matrix->runAction(action);
+	auto _enemy = global->Genemy;
 	matrix->setPosition(touch->getLocation());
 	switch (this->getType())
 	{
 		case 1:
 		{
+			//detected(_enemy,touch->getLocation());
 			cdButtonOne->runSkillAnimationA(this, touch->getLocation());
 			break;
 		}
 		case 2:
 		{
+			//detected(_enemy,touch->getP);
 			cdButtonTwo->runSkillAnimationB(this, touch->getLocation());
 			break;
 		}
 		case 3:
 		{
+			//detected(_enemy);
 			cdButtonThree->runSkillAnimationC(this, touch->getLocation());
 		}
 	}
 	matrix->setVisible(false);
-		
+	detected(_enemy);
+}
+
+void skillButtonLayer::detected(__Array* _enemy)
+{
+	auto matrixRect = matrix->getBoundingBox();
+	auto toDeleteEnemy = __Array::create();
+	toDeleteEnemy->retain();
+	for (int i = 0;i < _enemy->count();i++)
+	{
+		auto enemy = (Enemy*)_enemy->objectAtIndex(i);
+		auto enemyRect = enemy->getBoundingBox();
+		if (enemyRect.intersectsRect(matrixRect))
+		{
+			enemy->beSkillAttack();
+			toDeleteEnemy->addObject(enemy);
+		}
+	}
+	for (int i = 0;i < toDeleteEnemy->count();i++)
+	{
+		auto enemyToDelete = toDeleteEnemy->getObjectAtIndex(i);
+		_enemy->removeObject(enemyToDelete);
+	}
+	toDeleteEnemy->removeAllObjects();
 }

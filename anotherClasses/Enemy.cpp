@@ -105,6 +105,23 @@ bool Enemy::beAttacked()
 	return true;
 }
 
+void Enemy::beSkillAttack()
+{
+	float hurt = getSkillHurt();
+	float currtLife = this->getcurLifeValue();
+	float currtDefence = this->getDefense();
+	currtLife -= hurt*(1 - currtDefence*0.1);
+	this->setcurLifeValue(currtLife);
+	if (currtLife <= 0)
+	{
+		bloodValue->setPercentage(0);
+		this->runDeadAction();
+		//return false;
+	}
+	else
+		bloodValue->setPercentage(currtLife / this->getLifeValue() * 100);
+}
+
 
 void Enemy::Move()
 {

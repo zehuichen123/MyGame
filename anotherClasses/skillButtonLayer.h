@@ -12,6 +12,7 @@ public:
 	void onTouchEnded(Touch* touch, Event* event);
 	void onEnter();
 	bool init();
+	void detected(__Array* enemy);
 private:
 	Sprite* matrix;
 	magicSkillButton* cdButtonOne;

@@ -19,9 +19,10 @@ public:
 	void runSkillAnimationA(Layer* layer,Point point);
 	void runSkillAnimationB(Layer* layer,Point point);
 	void runSkillAnimationC(Layer* layer,Point point);
+	void detected(Point point);
 private:
 	void skillCallBack(Node* pSender);
-	Animation * createNormalAnimation(const char * formatStr, int FrameCount, int fps);
+	//Animation * createNormalAnimation(const char * formatStr, int FrameCount, int fps);
 	ProgressTimer* cdBar;
 	Sprite* cdIcon;
 	bool setUpdateView(char* Icon);

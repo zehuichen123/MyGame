@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "Singleton.h"
 #include "defenderGameLayer.h"
-//#include "Enemy.h"
+#include "Enemy.h"
 USING_NS_CC;
 
 //declare these class,or will report error

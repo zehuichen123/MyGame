@@ -13,9 +13,9 @@ public:
 	CC_SYNTHESIZE(Vec2, velocity, Velocity);
 	CC_SYNTHESIZE(float, damageStrength, DamageStrength);
 	CC_SYNTHESIZE(float, defense, Defense);
-	CC_SYNTHESIZE(int, monType, MonType);
 	CC_SYNTHESIZE(float, attackRange, AttackRange);
 	CC_SYNTHESIZE(float, weaponHurt, WeaponHurt);
+	CC_SYNTHESIZE(float, skillHurt, SkillHurt);
 
 	//create animation list
 	CC_SYNTHESIZE_RETAIN(Action*, _walkAction, WalkAction);

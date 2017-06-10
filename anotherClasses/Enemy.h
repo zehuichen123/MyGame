@@ -22,6 +22,8 @@ public:
 	
 	bool beAttacked();
 
+	void beSkillAttack();
+
 	void runWalkAction();
 	void runNormalAttackAction();
 	void runDeadAction();

@@ -12,7 +12,8 @@ Role::Role() :
 	LifeValue(100),
 	defense(0),
 	//attackRange()
-	weaponHurt(50)
+	weaponHurt(50),
+	skillHurt(100)
 {};
 Role::~Role()
 {
