@@ -68,7 +68,7 @@ bool defenderGameLayer::setUpdateView()
 			visibleOrigin.y + visibleSize.height / 2);
 		this->addChild(weapon);
 
-		bulletSample = Sprite::create("Game/bullet.png");
+		bulletSample = Sprite::create("game/bullet.png");
 		bulletSample->setAnchorPoint(Point(0, 0.5));
 		bulletSample->setPosition(weapon->getPosition());
 		this->addChild(bulletSample);
@@ -80,7 +80,7 @@ bool defenderGameLayer::setUpdateView()
 		pause->setAnchorPoint(Point(0, 1));
 		pause->setPosition(20, getWinSize().height - 20);
 
-		auto matrix = Sprite::create("Game/MagicMatrix.png");
+		auto matrix = Sprite::create("game/MagicMatrix.png");
 		matrix->setVisible(false);
 		matrix->setPosition(visibleSize.width / 6 * 8, visibleSize.height / 15);
 		this->addChild(matrix);
@@ -132,7 +132,7 @@ void defenderGameLayer::onTouchEnded(Touch* touch, Event* event)
 	auto touchPoint = touch->getLocation();
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto bullet = Sprite::create("Game/bullet.png");
+	auto bullet = Sprite::create("game/bullet.png");
 	_bullet->addObject(bullet);
 	bullet->setAnchorPoint(Point(0, 0.5));
 	bullet->setRotation(rota);
@@ -199,7 +199,7 @@ void defenderGameLayer::addEnemy(float dt)
 	target->Enemy::Move();
 	_enemy->addObject(target);
 	//target->setPosition(getWinCenter());
-	this->addChild(target,50);
+	this->addChild(target);
 
 }
 

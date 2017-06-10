@@ -56,7 +56,7 @@ bool welcomeLayer::setUpdateView()
 			Sprite::create("gmme/star_down.png"),
 			CC_CALLBACK_1(welcomeLayer::playCallBack, this));
 		//CC_BREAK_IF(!playButton);
-		playButton->setPosition(Point(getWinSize().width*0.83f, getWinSize().height*0.75f));
+		playButton->setPosition(Point(getWinSize().width*0.85f, getWinSize().height*0.79f));
 
 		auto musicOnMenuItem = MenuItemImage::create(
 			"gmme/button_sound_on.png",

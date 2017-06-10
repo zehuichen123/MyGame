@@ -19,6 +19,10 @@ public:
 	defenderGameLayer* GdefenderGameLayer;
 	Scene* Gscene;
 	Sprite* Gmatrix;
+	__Array* Genemy;
+	__Array* Gbullet;
+	__Array* GtoDeleteEnemy;
+	__Array* GtoDeleteBullet;
 	//bool Gavail;
 };
 #define global Global::instance()
