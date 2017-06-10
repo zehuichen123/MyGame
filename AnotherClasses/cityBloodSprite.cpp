@@ -14,6 +14,7 @@ cityBloodSprite* cityBloodSprite::create()
 	if (bloodSprite&&bloodSprite->setUpdateView())
 	{
 		bloodSprite->autorelease();
+		//global->GcityBloodSprite = bloodSprite;
 		return bloodSprite;
 	}
 	else
@@ -27,7 +28,7 @@ bool cityBloodSprite::setUpdateView()
 	bool ret = false;
 	do {
 
-		auto bloodBar = ProgressTimer::create(Sprite::create("game/cityBlood.png"));
+		bloodBar = ProgressTimer::create(Sprite::create("game/cityBlood.png"));
 		bloodBar->setAnchorPoint(Point(0, 0.5));
 		bloodBar->setType(ProgressTimer::Type::BAR);
 		bloodBar->setMidpoint(Point(0, 0));
@@ -36,7 +37,7 @@ bool cityBloodSprite::setUpdateView()
 		bloodBar->setPosition(Point(91,45));
 		this->addChild(bloodBar);
 
-		auto magicBar = ProgressTimer::create(Sprite::create("game/magic.png"));
+		magicBar = ProgressTimer::create(Sprite::create("game/magic.png"));
 		magicBar->setAnchorPoint(Point(0, 0.5));
 		magicBar->setType(ProgressTimer::Type::BAR);
 		magicBar->setMidpoint(Point(0, 0));
@@ -45,7 +46,48 @@ bool cityBloodSprite::setUpdateView()
 		magicBar->setPercentage(100);
 		this->addChild(magicBar);
 
+		this->schedule(schedule_selector(cityBloodSprite::recoverMagic), 1.0f);
 		ret = true;
 	} while (0);
 	return ret;
 }
+
+void cityBloodSprite::beAttack(float hurt)
+{
+	auto currCityBlood = this->getCityBlood();
+	if (currCityBlood - hurt > 0)
+	{
+		this->setCityBlood(currCityBlood - hurt);
+		bloodBar->setPercentage(this->getCityBlood());
+	}
+	else {
+
+	}
+}
+
+bool cityBloodSprite::magicCost(float value)
+{
+	auto currMagicValue = this->getMagicValue();
+	if (currMagicValue - value > 0)
+	{
+		this->setMagicValue(currMagicValue - value);
+		magicBar->setPercentage(this->getMagicValue());
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void cityBloodSprite::recoverMagic(float dt)
+{
+	auto value = global->GcityBloodSprite->getMagicValue();
+	if (value < 100)
+	{
+		value += 1;
+	}
+	global->GcityBloodSprite->setMagicValue(value);
+	global->GcityBloodSprite->magicBar->setPercentage(this->getMagicValue());
+}
+

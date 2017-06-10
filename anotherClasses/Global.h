@@ -5,11 +5,13 @@
 #include "Singleton.h"
 #include "defenderGameLayer.h"
 #include "Enemy.h"
+#include "cityBloodSprite.h"
 USING_NS_CC;
 
 //declare these class,or will report error
 class defenderGameLayer;
 class Enemy;
+class cityBloodSprite;
 
 class Global :public Singleton<Global> {
 public:
@@ -17,11 +19,10 @@ public:
 	~Global();
 
 	defenderGameLayer* GdefenderGameLayer;
+	cityBloodSprite* GcityBloodSprite;
 	Scene* Gscene;
 	Sprite* Gmatrix;
 	__Array* Genemy;
-	__Array* Gbullet;
-	__Array* GtoDeleteEnemy;
 	__Array* GtoDeleteBullet;
 	//bool Gavail;
 };

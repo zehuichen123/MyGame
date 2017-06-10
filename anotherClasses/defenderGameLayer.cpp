@@ -93,10 +93,13 @@ bool defenderGameLayer::setUpdateView()
 		this->addChild(bloodBg,5);
 
 		auto blood = cityBloodSprite::create();
-		//blood->setAnchorPoint(Point(0, 0));
+		
 		blood->setPosition(Point::ZERO);
 		//blood->setScale(1.3);
 		bloodBg->addChild(blood);
+		//bloodBg->scheduleUpdate();
+		global->GcityBloodSprite = blood;
+		
 
 		
 

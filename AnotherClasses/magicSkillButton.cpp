@@ -1,7 +1,8 @@
 #include "magicSkillButton.h"
 magicSkillButton::magicSkillButton():
 	hurt(100),
-	avail(true)
+	avail(true),
+	cost(10)
 {
 }
 magicSkillButton::~magicSkillButton()

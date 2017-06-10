@@ -25,6 +25,7 @@ bool skillButtonLayer::init()
 		this->addChild(cdButtonTwo);
 		this->addChild(cdButtonThree);
 
+
 		ret = true;
 	} while (0);
 	return ret;
@@ -50,17 +51,23 @@ void skillButtonLayer::onEnter()
 			cdButtonThree->getPosition().y - 40,
 			80, 80
 		};
-		if(Button1Rect.containsPoint(touchPos)&&cdButtonOne->getAvail()==true)
+		if(Button1Rect.containsPoint(touchPos)
+			&&cdButtonOne->getAvail()==true
+			&&global->GcityBloodSprite->magicCost(cdButtonOne->getCost()))
 		{
 			this->type = 1;
 			return true;
 		}
-		else if (Button2Rect.containsPoint(touchPos)&&cdButtonTwo->getAvail()==true)
+		else if (Button2Rect.containsPoint(touchPos)
+			&&cdButtonTwo->getAvail()==true
+			&& global->GcityBloodSprite->magicCost(cdButtonOne->getCost()))
 		{
 			this->type = 2;
 			return true;
 		}
-		else if (Button3Rect.containsPoint(touchPos)&&cdButtonThree->getAvail()==true)
+		else if (Button3Rect.containsPoint(touchPos)
+			&&cdButtonThree->getAvail()==true
+			&& global->GcityBloodSprite->magicCost(cdButtonOne->getCost()))
 		{
 			this->type = 3;
 			return true;
@@ -95,20 +102,18 @@ void skillButtonLayer::onTouchEnded(Touch* touch, Event* event)
 	{
 		case 1:
 		{
-			//detected(_enemy,touch->getLocation());
 			cdButtonOne->runSkillAnimationA(this, touch->getLocation());
 			break;
 		}
 		case 2:
 		{
-			//detected(_enemy,touch->getP);
 			cdButtonTwo->runSkillAnimationB(this, touch->getLocation());
 			break;
 		}
 		case 3:
 		{
-			//detected(_enemy);
 			cdButtonThree->runSkillAnimationC(this, touch->getLocation());
+			break;
 		}
 	}
 	matrix->setVisible(false);

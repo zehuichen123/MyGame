@@ -14,7 +14,7 @@ public:
 	~Enemy();
 	bool setUpdateView();
 	bool init();
-	void updateSelf();
+	//void updateSelf();
 	void update(float dt);
 	CREATE_FUNC(Enemy);
 

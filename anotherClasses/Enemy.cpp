@@ -1,5 +1,6 @@
 #include "Enemy.h"
-Enemy::Enemy():actualDuration(5)
+Enemy::Enemy():
+	actualDuration(5)
 {
 	
 }
@@ -63,6 +64,9 @@ bool Enemy::init()
 void Enemy::runNormalAttackAction()
 {
 	this->runAction(this->getNormalAttackAction());
+	auto hurt = this->getDamageStrength();
+	auto citySprite = global->GcityBloodSprite;
+	citySprite->cityBloodSprite::beAttack(hurt);
 }
 void Enemy::attackCallBackAction(Node* pSender)
 {

@@ -8,7 +8,6 @@ public:
 	magicSkillButton();
 	~magicSkillButton();
 	static magicSkillButton* create(char* Icon);
-	
 	CC_SYNTHESIZE(float, hurt, Hurt);
 	CC_SYNTHESIZE(bool, avail, Avail);
 	//CC_SYNTHESIZE(bool, activation, Activation);
