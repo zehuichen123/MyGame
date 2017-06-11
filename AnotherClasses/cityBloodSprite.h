@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "Global.h"
+#include "GameSuccessfullyLayer.h"
 USING_NS_CC;
 class cityBloodSprite :public Sprite {
 public:

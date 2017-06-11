@@ -61,7 +61,9 @@ void cityBloodSprite::beAttack(float hurt)
 		bloodBar->setPercentage(this->getCityBlood());
 	}
 	else {
-
+		//debug to be deleted
+		auto scene = GameSuccessfullyLayer::createScene();
+		Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, scene));
 	}
 }
 

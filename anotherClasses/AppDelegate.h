@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "LoadingLayer.h"
 #include "welcomeLayer.h"
+#include "GameSuccessfullyLayer.h"
 /**
 @brief    The cocos2d Application.
 

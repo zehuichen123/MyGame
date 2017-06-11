@@ -11,7 +11,7 @@ Role::Role() :
 	curLifeValue(100),
 	LifeValue(100),
 	defense(0),
-	damageStrength(3),
+	damageStrength(5),
 	//attackRange()
 	weaponHurt(50),
 	skillHurt(100)

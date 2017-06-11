@@ -100,11 +100,19 @@ bool defenderGameLayer::setUpdateView()
 		//bloodBg->scheduleUpdate();
 		global->GcityBloodSprite = blood;
 		
+		auto SnailBar = snailBar::createPic();
+		SnailBar->setAnchorPoint(Point(1, 0.5));
+		SnailBar->setPosition(this->getWinSize().width - 360, this->getWinSize().height - 40);
+		SnailBar->setScale(1.5);
+		SnailBar->setRunTime(60);   //wating to add
+		this->addChild(SnailBar, 3, 6);
+		SnailBar->runSnailAnimation();
+
 		auto LevelSprite = levelSprite::createNum();
 		LevelSprite->setPosition(getWinCenter());
 		this->addChild(LevelSprite, 2, 7);
 		LevelSprite->setScaleY(0);
-		LevelSprite->setLevelNum(98765432);
+		LevelSprite->setLevelNum(1);
 		LevelSprite->runLevelShowAnimation();
 
 		GameTipsSprite* gameTipsSprite = GameTipsSprite::create();
@@ -112,18 +120,19 @@ bool defenderGameLayer::setUpdateView()
 		gameTipsSprite->setPosition(Point(145, getWinSize().height - 40));
 		gameTipsSprite->setgoldNum(0);
 		//gameTipsSprite->setgoldNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0));
-		gameTipsSprite->setMonstNum(1);
-		gameTipsSprite->setStageNum(1);
-		gameTipsSprite->setMonstTotalNum(5);
+		gameTipsSprite->setMonstNum(0);
+		gameTipsSprite->setStageNum(0);
+		gameTipsSprite->setMonstTotalNum(1);
 		//gameTipsSprite->setMonstTotalNum(this->monsterBatch);
 		//gameTipsSprite->setStageNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("lve", 1));
 		this->addChild(gameTipsSprite, 3, 8);
-		
 
 		auto _Menu = Menu::create(pause, NULL);
 		//CC_BREAK_IF(!_Menu);
 		_Menu->setPosition(Point::ZERO);
 		this->addChild(_Menu);
+
+		
 
 		schedule(schedule_selector(defenderGameLayer::updateCustom), 0.4f, kRepeatForever, 0);
 		this->schedule(schedule_selector(defenderGameLayer::addEnemy), 1.0f);

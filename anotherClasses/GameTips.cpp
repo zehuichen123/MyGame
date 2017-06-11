@@ -18,23 +18,23 @@ bool GameTipsSprite::setUpdateView() {
 		gold->setPosition(Point::ZERO);
 		this->addChild(gold);
 		// 金币数目
-		auto goldnumbrer = LabelAtlas::create("0", "game/numtips.png", 33.9, 43, '0');
+		auto goldnumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
 		CC_BREAK_IF(!goldnumbrer);
 		goldnumbrer->setAnchorPoint(Point(0, 0.5));
 		goldnumbrer->setPosition(Point(gold->getContentSize().width / 2, 0));
-		goldnumbrer->setScale(0.5);
+		//goldnumbrer->setScale(0.5);
 		this->addChild(goldnumbrer, 1, 1);
 
 		//怪物波数
-		auto monstnumbrer = LabelAtlas::create("0", "game/numtips.png", 33.9, 43, '0');
+		auto monstnumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
 		CC_BREAK_IF(!monstnumbrer);
 		monstnumbrer->setAnchorPoint(Point(0, 0.5));
 		monstnumbrer->setPosition(Point(goldnumbrer->boundingBox().getMaxX() + 120, 0));
-		monstnumbrer->setScale(0.5);
+		//monstnumbrer->setScale(0.5);
 		this->addChild(monstnumbrer, 1, 2);
 
 		// 当前关卡
-		auto monstlable = LabelTTF::create("/", "Arial", 24);
+		auto monstlable = LabelTTF::create("/", "Arial", 48);
 		CC_BREAK_IF(!monstlable);
 		monstlable->setAnchorPoint(Point(0, 0.5));
 		monstlable->setPosition(Point(monstnumbrer->boundingBox().getMaxX() + 10, 0));
@@ -42,24 +42,24 @@ bool GameTipsSprite::setUpdateView() {
 		this->addChild(monstlable, 1);
 
 		// 怪物总波数
-		auto monsttotalnumbrer = LabelAtlas::create("0", "game/numtips.png", 33.9, 43, '0');
+		auto monsttotalnumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
 		CC_BREAK_IF(!monsttotalnumbrer);
 		monsttotalnumbrer->setAnchorPoint(Point(0, 0.5));
-		monsttotalnumbrer->setScale(0.5);
+		//monsttotalnumbrer->setScale(0.5);
 		monsttotalnumbrer->setPosition(Point(monstlable->boundingBox().getMaxX(), 0));
 		this->addChild(monsttotalnumbrer, 1, 3);
 
 		// 当前关卡
-		auto stagelable =LabelTTF::create("Stage:", "Arial", 24);
+		auto stagelable =LabelTTF::create("Stage:", "Arial", 48);
 		CC_BREAK_IF(!stagelable);
 		stagelable->setAnchorPoint(Point(0, 0.5));
 		stagelable->setPosition(Point(monsttotalnumbrer->boundingBox().getMaxX() + 40, 0));
 		stagelable->setColor(ccc3(255, 255, 255));
 		this->addChild(stagelable, 1);
 
-		auto stagenumbrer = LabelAtlas::create("0", "game/numtips.png", 33.9, 43, '0');
+		auto stagenumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
 		CC_BREAK_IF(!stagenumbrer);
-		stagenumbrer->setScale(0.5);
+		//stagenumbrer->setScale(0.5);
 		stagenumbrer->setAnchorPoint(Point(0, 0.5));
 		stagenumbrer->setPosition(Point(stagelable->boundingBox().getMaxX(), 0));
 		this->addChild(stagenumbrer, 1, 4);

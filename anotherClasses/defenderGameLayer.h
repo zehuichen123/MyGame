@@ -9,6 +9,7 @@
 #include "skillButtonLayer.h"
 #include "levelSprite.h"
 #include "GameTips.h"
+#include "snailBar.h"
 USING_NS_CC;
 class defenderGameLayer :public BaseLayer {
 public:

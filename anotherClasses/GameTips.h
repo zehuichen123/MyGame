@@ -11,10 +11,10 @@ public:
 	CREATE_FUNC(GameTipsSprite);
 	virtual bool init();
 	bool setUpdateView();
-	void initialization();// 重新初始化这个控件
-	void setgoldNum(int num);// 设置金币总数量
-	void setMonstNum(int num);// 设置当前怪物波数
-	void setMonstTotalNum(int num);// 设置当前怪物总波数
-	void setStageNum(int num);// 设置当前关卡
+	void initialization();
+	void setgoldNum(int num);
+	void setMonstNum(int num);
+	void setMonstTotalNum(int num);
+	void setStageNum(int num);
 };
 #endif
