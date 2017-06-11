@@ -7,7 +7,8 @@
 #include "PopupLayer.h"
 #include "cityBloodSprite.h"
 #include "skillButtonLayer.h"
-
+#include "levelSprite.h"
+#include "GameTips.h"
 USING_NS_CC;
 class defenderGameLayer :public BaseLayer {
 public:
