@@ -47,6 +47,8 @@ bool LoadingLayer::init()
 		CCTextureCache::getInstance()->addImageAsync
 					("gmme/return_up.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // ·µ»Ø²Ëµ¥°´Å¥
 		//this->loadCallBack();
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("specia/thumbnails.plist", "specia/thumbnails.png");
+
 		ret = true;
 	} while (0);
 	return ret;

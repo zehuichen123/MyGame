@@ -15,9 +15,9 @@ bool skillButtonLayer::init()
 		CC_BREAK_IF(!Layer::init());
 		
 
-		cdButtonOne = magicSkillButton::create("abc");
-		cdButtonTwo = magicSkillButton::create("abg");
-		cdButtonThree = magicSkillButton::create("fd");
+		cdButtonOne = magicSkillButton::create("diyus.png");
+		cdButtonTwo = magicSkillButton::create("lights.png");
+		cdButtonThree = magicSkillButton::create("longs.png");
 		cdButtonOne->setPosition(visibleSize.width * 7/8, visibleSize.height/13 );
 		cdButtonTwo->setPosition(visibleSize.width * 6/8, visibleSize.height / 13);
 		cdButtonThree->setPosition(visibleSize.width * 5/8, visibleSize.height / 13);

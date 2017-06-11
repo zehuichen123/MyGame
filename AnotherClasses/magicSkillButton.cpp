@@ -28,13 +28,14 @@ bool magicSkillButton::setUpdateView(char* Icon)
 {
 	bool ret = false;
 	do {
-		/*cdIcon->Sprite::create(Icon);
+		cdIcon=Sprite::create();
+		cdIcon->initWithSpriteFrameName(Icon);
 		cdIcon->setPosition(this->getContentSize() / 2);
 		if (!this->avail)
 		{
 			cdIcon->setVisible(false);
 		}
-		this->addChild(cdIcon,10);*/
+		this->addChild(cdIcon,10);
 
 		cdBar = ProgressTimer::create(Sprite::create("game/cdSkillButton.png"));
 		cdBar->setPercentage(0);
@@ -59,6 +60,7 @@ void magicSkillButton::runCDAnimation()
 	if (this->avail)
 	{
 		this->setAvail(false);
+		cdIcon->setVisible(false);
 		auto cdAction = ProgressTo::create(8, 100);
 		auto actualAction=Sequence::create(
 			cdAction, CallFuncN::create(CC_CALLBACK_1(magicSkillButton::cdCallBack, this)),NULL);
@@ -69,7 +71,7 @@ void magicSkillButton::runCDAnimation()
 void magicSkillButton::cdCallBack(Node* pSender)
 {
 	this->avail = true;
-	//cdIcon->setVisible(true)
+	cdIcon->setVisible(true);
 }
 
 void magicSkillButton::runSkillAnimationA(Layer* layer,Point point)
