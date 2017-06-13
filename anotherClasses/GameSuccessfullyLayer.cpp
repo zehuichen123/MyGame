@@ -30,7 +30,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		laybg->setPosition(getWinCenter());
 		this->addChild(laybg);
 		// 添加当前关卡
-		auto stage = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto stage = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!stage);
 		int lve = UserDefault::sharedUserDefault()->getIntegerForKey("lve", 1);
 		sprintf(temp, "%d", lve);
@@ -41,7 +41,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		CCUserDefault::sharedUserDefault()->setIntegerForKey("lve", lve + 1);
 
 		// 添加击杀怪物数目
-		auto killcount = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto killcount = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!killcount);
 		int killtemp = UserDefault::sharedUserDefault()->getIntegerForKey("killtemp", 10);
 		sprintf(temp, "%d", killtemp);
@@ -53,7 +53,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 
 
 		// 显示剩余生命值
-		auto lifecount = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto lifecount = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!lifecount);
 		int lifetemp = UserDefault::sharedUserDefault()->getIntegerForKey("lifetemp", 100);
 		sprintf(temp, "%d", lifetemp);
@@ -64,36 +64,36 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		CCUserDefault::sharedUserDefault()->setIntegerForKey("lifetemp", 100);
 
 		// 显示击杀奖励 规定杀死一个怪经历1个金币
-		auto killbound = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto killbound = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!killbound);
 		sprintf(temp, "%d", killtemp);
 		killbound->setString(temp);
 		killbound->setAnchorPoint(Point(0, 0));
-		killbound->setPosition(visibleSize.width * 51 / 100, visibleSize.height * 450/970 );
+		killbound->setPosition(visibleSize.width * 55 / 100, visibleSize.height * 450/970 );
 		this->addChild(killbound, 1);
 
 		// 显示生命值奖励 一点生命值奖励一个金币
-		auto lifebound = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto lifebound = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!lifebound);
 		sprintf(temp, "%d", lifetemp);
 		lifebound->setString(temp);
 		lifebound->setAnchorPoint(Point(0, 0));
-		lifebound->setPosition(visibleSize.width * 51 / 100, visibleSize.height * 35/97);
+		lifebound->setPosition(visibleSize.width * 55 / 100, visibleSize.height * 35/97);
 		this->addChild(lifebound, 1);
 
 
 		// 显示关卡奖励 一个过一关奖励5个金币
-		auto goldbound = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto goldbound = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!goldbound);
 		sprintf(temp, "%d", lve * 5);
 		goldbound->setString(temp);
 		goldbound->setAnchorPoint(Point(0, 0));
-		goldbound->setPosition(visibleSize.width * 51 / 100, visibleSize.height * 26/97 );
+		goldbound->setPosition(visibleSize.width * 55/ 100, visibleSize.height * 26/97 );
 		this->addChild(goldbound, 1);
 
 
 		// 显示显示总奖励金币
-		auto total = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto total = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!total);
 		int totalnum = lve * 5 + lifetemp + killtemp;
 		sprintf(temp, "%d", totalnum);

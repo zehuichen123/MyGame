@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "cityBloodSprite.h"
 USING_NS_CC;
 class snailBar :public Node {
 public:
@@ -7,9 +8,10 @@ public:
 	~snailBar();
 	static snailBar* createPic();
 	void runSnailAnimation();
-	void setSnailProgress(float progress);
+	void gameCallBack(Node * pSender);
+	//void setSnailProgress(float progress);
 	CC_SYNTHESIZE(float, runTime, RunTime);
-	void initialization();
+	//void initialization();
 private:
 	bool setUpdateView();
 	Sprite* snailBg;

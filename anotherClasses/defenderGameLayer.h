@@ -35,7 +35,7 @@ private:
 	__Array* toDeleteBullet;
 	bool setUpdateView();
 	//void detect(float tim);
-	void weaponCallBack(Ref* pSender);
+	//void weaponCallBack(Ref* pSender);
 	//Sprite* target;
 	Sprite* weapon;
 	Sprite* bulletSample;

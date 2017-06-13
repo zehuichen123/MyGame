@@ -1,13 +1,11 @@
 #include "magicSkillButton.h"
 magicSkillButton::magicSkillButton():
-	hurt(100),
 	avail(true),
 	cost(10)
 {
 }
 magicSkillButton::~magicSkillButton()
 {
-
 }
 magicSkillButton* magicSkillButton::create(char* Icon)
 {
@@ -107,7 +105,7 @@ void magicSkillButton::runSkillAnimationB(Layer* layer,Point point)
 		monst->initWithSpriteFrameName("light0.png");
 		Animation *purpleAnim = Role::createNormalAnimation("light%d.png", 17, 8);
 
-		CCAnimate *animate = CCAnimate::create(purpleAnim);
+		auto *animate = Animate::create(purpleAnim);
 		CCSequence* pse = CCSequence::create(animate, CallFuncN::create(CC_CALLBACK_1(magicSkillButton::skillCallBack, this)), NULL);
 		monst->setAnchorPoint(this->getAnchorPoint());
 		monst->setPosition(point - Point(300, 300));
@@ -130,8 +128,8 @@ void magicSkillButton::runSkillAnimationC(Layer* layer,Point point)
 		monst->initWithSpriteFrameName("long0.png");
 		Animation *blueAnim = Role::createNormalAnimation("long%d.png", 14, 8);
 
-		CCAnimate *animate = CCAnimate::create(blueAnim);
-		CCSequence* pse = CCSequence::create(animate, CallFuncN::create(CC_CALLBACK_1(magicSkillButton::skillCallBack, this)), NULL);
+		auto animate = Animate::create(blueAnim);
+		auto pse = Sequence::create(animate, CallFuncN::create(CC_CALLBACK_1(magicSkillButton::skillCallBack, this)), NULL);
 		monst->setAnchorPoint(this->getAnchorPoint());
 		monst->setPosition(point - Point(200, 200));
 		layer->addChild(monst, 3);
@@ -151,11 +149,10 @@ void magicSkillButton::detected(Point point)
 
 void magicSkillButton::skillCallBack(Node* pSender)
 {
-	Sprite* monst = (Sprite*)pSender;
+	auto monst = (Sprite*)pSender;
 	auto de = (Layer*)monst->getParent();
 	de->removeChild(pSender, true);
-	//this->avail = true;
-	//de->stopSpeciaCollisionMonster();
+
 }
 
 

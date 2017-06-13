@@ -1,8 +1,6 @@
 #include "Enemy.h"
-Enemy::Enemy():
-	actualDuration(5)
+Enemy::Enemy()
 {
-	
 }
 Enemy::~Enemy()
 {}
@@ -64,26 +62,34 @@ bool Enemy::init()
 void Enemy::runNormalAttackAction()
 {
 	this->runAction(this->getNormalAttackAction());
+	this->schedule(schedule_selector(Enemy::attackCallBackAction), 3, 20, 0);
+	
+}
+void Enemy::attackCallBackAction(float dt)
+{
 	auto hurt = this->getDamageStrength();
 	auto citySprite = global->GcityBloodSprite;
 	citySprite->cityBloodSprite::beAttack(hurt);
-}
-void Enemy::attackCallBackAction(Node* pSender)
-{
-
 }
 
 void Enemy::runDeadAction()
 {
 	this->stopAllActions();
-	//auto actionDead = Sequence::create(this->getDeadAction(), Enemy::deadCallBackAction(), NULL);
 	this->runAction(this->getDeadAction());
-	
 }
+
 void Enemy::deadCallBackAction(Node* pSender)
 {
 	this->setVisible(false);
 	global->GdefenderGameLayer->removeChild(this, true);
+	auto gameTipsSprite = global->GgameTipsSprite;
+	int goldnum = UserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0);
+	goldnum = 1 + goldnum;
+	UserDefault::sharedUserDefault()->setIntegerForKey("goldNum", goldnum);
+	gameTipsSprite->setgoldNum(goldnum);
+
+	int killtemp = UserDefault::sharedUserDefault()->getIntegerForKey("killtemp", 1);
+	UserDefault::sharedUserDefault()->setIntegerForKey("killtemp", killtemp + 1);
 	
 }
 void Enemy::runWalkAction()
@@ -96,7 +102,8 @@ bool Enemy::beAttacked()
 	float hurt = getWeaponHurt();
 	float currtLife = this->getcurLifeValue();
 	float currtDefence = this->getDefense();
-	currtLife -= hurt*(1-currtDefence*0.1);
+	currtLife = currtLife - hurt*(1 - currtDefence);
+	//currtLife -= hurt*(1-currtDefence*0.1);
 	this->setcurLifeValue(currtLife);
 	if (currtLife <= 0)
 	{
@@ -114,13 +121,12 @@ void Enemy::beSkillAttack()
 	float hurt = getSkillHurt();
 	float currtLife = this->getcurLifeValue();
 	float currtDefence = this->getDefense();
-	currtLife -= hurt*(1 - currtDefence*0.1);
+	currtLife = currtLife - hurt*(1 - currtDefence);
 	this->setcurLifeValue(currtLife);
 	if (currtLife <= 0)
 	{
 		bloodValue->setPercentage(0);
 		this->runDeadAction();
-		//return false;
 	}
 	else
 		bloodValue->setPercentage(currtLife / this->getLifeValue() * 100);
@@ -139,7 +145,7 @@ void Enemy::Move()
 	int actualY = (CCRANDOM_0_1() * rangeY) + minY;
 	this->setPosition(Point(visibleSize.width + this->getContentSize().width / 2, actualY));
 	
-	auto actionMove = MoveTo::create(actualDuration,
+	auto actionMove = MoveTo::create(visibleSize.width/speed,
 		Point(visibleSize.width * 3 / 16, actualY));
 
 	auto actionAttack = this->getNormalAttackAction();

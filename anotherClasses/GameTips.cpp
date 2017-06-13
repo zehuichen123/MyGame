@@ -18,7 +18,7 @@ bool GameTipsSprite::setUpdateView() {
 		gold->setPosition(Point::ZERO);
 		this->addChild(gold);
 		// 金币数目
-		auto goldnumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto goldnumbrer = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!goldnumbrer);
 		goldnumbrer->setAnchorPoint(Point(0, 0.5));
 		goldnumbrer->setPosition(Point(gold->getContentSize().width / 2, 0));
@@ -26,7 +26,7 @@ bool GameTipsSprite::setUpdateView() {
 		this->addChild(goldnumbrer, 1, 1);
 
 		//怪物波数
-		auto monstnumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto monstnumbrer = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!monstnumbrer);
 		monstnumbrer->setAnchorPoint(Point(0, 0.5));
 		monstnumbrer->setPosition(Point(goldnumbrer->boundingBox().getMaxX() + 120, 0));
@@ -42,7 +42,7 @@ bool GameTipsSprite::setUpdateView() {
 		this->addChild(monstlable, 1);
 
 		// 怪物总波数
-		auto monsttotalnumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto monsttotalnumbrer = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!monsttotalnumbrer);
 		monsttotalnumbrer->setAnchorPoint(Point(0, 0.5));
 		//monsttotalnumbrer->setScale(0.5);
@@ -57,7 +57,7 @@ bool GameTipsSprite::setUpdateView() {
 		stagelable->setColor(ccc3(255, 255, 255));
 		this->addChild(stagelable, 1);
 
-		auto stagenumbrer = LabelAtlas::create("0", "game/numWhite.png", 33.9, 43, '0');
+		auto stagenumbrer = LabelAtlas::create("0", "game/numWhite.png", 34, 43, '0');
 		CC_BREAK_IF(!stagenumbrer);
 		//stagenumbrer->setScale(0.5);
 		stagenumbrer->setAnchorPoint(Point(0, 0.5));

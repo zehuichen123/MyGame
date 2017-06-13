@@ -112,19 +112,18 @@ bool defenderGameLayer::setUpdateView()
 		LevelSprite->setPosition(getWinCenter());
 		this->addChild(LevelSprite, 2, 7);
 		LevelSprite->setScaleY(0);
-		LevelSprite->setLevelNum(1);
+		LevelSprite->setLevelNum(UserDefault::sharedUserDefault()->getIntegerForKey("lve", 1));
 		LevelSprite->runLevelShowAnimation();
 
 		GameTipsSprite* gameTipsSprite = GameTipsSprite::create();
+		global->GgameTipsSprite = gameTipsSprite;
 		CC_BREAK_IF(!gameTipsSprite);
 		gameTipsSprite->setPosition(Point(145, getWinSize().height - 40));
-		gameTipsSprite->setgoldNum(0);
-		//gameTipsSprite->setgoldNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0));
-		gameTipsSprite->setMonstNum(0);
-		gameTipsSprite->setStageNum(0);
+		gameTipsSprite->setgoldNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0));
+		gameTipsSprite->setMonstNum(1);
 		gameTipsSprite->setMonstTotalNum(1);
 		//gameTipsSprite->setMonstTotalNum(this->monsterBatch);
-		//gameTipsSprite->setStageNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("lve", 1));
+		gameTipsSprite->setStageNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("lve", 1));
 		this->addChild(gameTipsSprite, 3, 8);
 
 		auto _Menu = Menu::create(pause, NULL);

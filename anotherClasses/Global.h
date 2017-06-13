@@ -5,6 +5,7 @@
 #include "Singleton.h"
 #include "defenderGameLayer.h"
 #include "Enemy.h"
+#include "GameTips.h"
 #include "cityBloodSprite.h"
 USING_NS_CC;
 
@@ -12,6 +13,7 @@ USING_NS_CC;
 class defenderGameLayer;
 class Enemy;
 class cityBloodSprite;
+class GameTipsSprite;
 
 class Global :public Singleton<Global> {
 public:
@@ -20,6 +22,7 @@ public:
 
 	defenderGameLayer* GdefenderGameLayer;
 	cityBloodSprite* GcityBloodSprite;
+	GameTipsSprite* GgameTipsSprite;
 	Scene* Gscene;
 	Sprite* Gmatrix;
 	__Array* Genemy;

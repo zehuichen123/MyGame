@@ -24,11 +24,16 @@ bool welcomeLayer::init()
 
 void welcomeLayer::onEnter() {
 	BaseLayer::onEnter();
-	if (SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying()) {
+	if (SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying()) 
+	{
 	}
 	else 
 	{
-		SimpleAudioEngine::getInstance()->playBackgroundMusic("music/dt.mp3");
+		if (UserDefault::sharedUserDefault()->getBoolForKey("isplay", true)) {
+			SimpleAudioEngine::getInstance()->playBackgroundMusic("music/dt.mp3", true);
+			// °ÑÒôÀÖ×´Ì¬ÉèÖÃÎª²¥·Å×´Ì¬
+			UserDefault::sharedUserDefault()->setBoolForKey("isplay", true);
+		}
 	}
 }
 
@@ -71,7 +76,16 @@ bool welcomeLayer::setUpdateView()
 										NULL);
 		musicToggleMenuItem->setPosition(Point(getWinSize().width*0.15f, getWinSize().height*0.55f));
 
-		Menu* pMenu = CCMenu::create(musicToggleMenuItem,coderName,playButton, NULL);
+
+		auto exitGame = MenuItemSprite::create(
+			Sprite::create("gmme/outup.png"),
+			Sprite::create("gmme/outdown.png"),
+			CC_CALLBACK_1(welcomeLayer::gameOverCallBack, this));
+		//CC_BREAK_IF(!playButton);
+		exitGame->setPosition(Point(getWinSize().width*0.8f, getWinSize().height*0.396f));
+
+
+		Menu* pMenu = CCMenu::create(musicToggleMenuItem,coderName,playButton,exitGame, NULL);
 		CC_BREAK_IF(!pMenu);
 		pMenu->setPosition(Vec2::ZERO);
 		this->addChild(pMenu, 2);
@@ -80,16 +94,22 @@ bool welcomeLayer::setUpdateView()
 	return ret;
 }
 
+void welcomeLayer::gameOverCallBack(Ref* pSender)
+{
+	Director::getInstance()->end();
+}
 void welcomeLayer::videoCallBack(Ref* pSender) 
 {
 	auto soundToggleMenuItem = (MenuItemToggle*)pSender;
 	if (soundToggleMenuItem->getSelectedIndex() == 1)
 	{
 		SimpleAudioEngine::getInstance()->stopBackgroundMusic("music/dt.mp3");
+		UserDefault::sharedUserDefault()->setBoolForKey("isplay", false);
 	}
 	else
 	{
 		SimpleAudioEngine::getInstance()->playBackgroundMusic("music/dt.mp3");
+		UserDefault::sharedUserDefault()->setBoolForKey("isplay", true);
 	}
 	
 }

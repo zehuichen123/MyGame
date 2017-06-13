@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Global.h"
 #include "GameSuccessfullyLayer.h"
+#include "gameOverLayer.h"
 USING_NS_CC;
 class cityBloodSprite :public Sprite {
 public:
@@ -14,7 +15,6 @@ public:
 	bool magicCost(float value);
 
 	void recoverMagic(float dt);
-
 	
 private:
 	bool setUpdateView();

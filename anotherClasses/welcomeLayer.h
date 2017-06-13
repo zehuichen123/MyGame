@@ -17,6 +17,7 @@ public:
 	bool isEffect;
 private:
 	bool setUpdateView();
+	void gameOverCallBack(Ref * pSender);
 	void videoCallBack(Ref* pSender);
 	void clickCallBack(Ref* pSender);
 	void coderNameCallBack(Ref* pSender);

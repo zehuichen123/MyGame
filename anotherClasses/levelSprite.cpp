@@ -24,7 +24,6 @@ void levelSprite::setLevelNum(int num)
 	char* temp = new char[12];
 	sprintf(temp, "%d", num);
 	number->setString(temp);
-	log(temp);
 	delete temp;
 }
 bool levelSprite::setUpdateView()

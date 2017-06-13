@@ -32,6 +32,6 @@ public:
 	//void underAttack();
 private:
 	ProgressTimer* bloodValue;
-	void attackCallBackAction(Node* pSender);
+	void attackCallBackAction(float dt);
 	void deadCallBackAction(Node* pSender);
 };

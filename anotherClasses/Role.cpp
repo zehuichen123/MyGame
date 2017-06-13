@@ -10,12 +10,20 @@ Role::Role() :
 	//currActionState(ACTION_STATE_NONE)
 	curLifeValue(100),
 	LifeValue(100),
-	defense(0),
-	damageStrength(5),
+	damageStrength(3),
 	//attackRange()
-	weaponHurt(50),
-	skillHurt(100)
-{};
+	weaponHurt(55),
+	defense(0.0),
+	skillHurt(1000),
+	speed(150)
+{
+	auto originDefense = this->getDefense();
+	this->setDefense(originDefense+ChangeSystem::defendImprove());
+	auto originHurt = this->getDamageStrength();
+	this->setDamageStrength(originHurt + ChangeSystem::hurtImprove());
+	auto originSpeed = this->getSpeed();
+	this->setSpeed(originSpeed + ChangeSystem::speedImprove());
+};
 Role::~Role()
 {
 	//CC_SAFE_RELEASE_NULL(_idleAction);

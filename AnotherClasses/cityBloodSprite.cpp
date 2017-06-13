@@ -61,9 +61,8 @@ void cityBloodSprite::beAttack(float hurt)
 		bloodBar->setPercentage(this->getCityBlood());
 	}
 	else {
-		//debug to be deleted
-		auto scene = GameSuccessfullyLayer::createScene();
-		Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, scene));
+		auto scene = gameOverLayer::createScene();
+		Director::getInstance()->replaceScene(TransitionFade::create(0.5f, scene));
 	}
 }
 
@@ -92,4 +91,3 @@ void cityBloodSprite::recoverMagic(float dt)
 	global->GcityBloodSprite->setMagicValue(value);
 	global->GcityBloodSprite->magicBar->setPercentage(this->getMagicValue());
 }
-
