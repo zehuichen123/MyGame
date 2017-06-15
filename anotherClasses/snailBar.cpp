@@ -1,6 +1,6 @@
 #include "snailBar.h"
 snailBar::snailBar():
-	runTime(10)
+	runTime(30)
 {}
 snailBar::~snailBar()
 {}
@@ -24,7 +24,7 @@ bool snailBar::setUpdateView()
 	do {
 		snail = Sprite::create("game/snail.png");
 		snail->setAnchorPoint(Point(0, 0.5));
-		snail->setPosition(this->getContentSize().width+120, this->getContentSize().height / 2);
+		snail->setPosition(this->getContentSize().width+50, this->getContentSize().height / 2);
 		this->addChild(snail,2);
 
 		snailBg = Sprite::create("game/snailBg.png");
@@ -47,7 +47,7 @@ void snailBar::runSnailAnimation()
 {
 	auto barMove= ProgressFromTo::create( this->getRunTime(),8, 100);
 	//auto barMoveTwo=Sequence::create(barMove, CallFuncN::create(CC_CALLBACK_1(cityBloodSprite::gameCallBack, this)), NULL);
-	auto snailMove = MoveTo::create(this->getRunTime(), Point(-200, this->getContentSize().height / 2));
+	auto snailMove = MoveTo::create(this->getRunTime(), Point(-150, this->getContentSize().height / 2));
 	snail->runAction(snailMove);
 	SnailBar->runAction(Sequence::create(barMove, CallFuncN::create(CC_CALLBACK_1(snailBar::gameCallBack, this)), NULL));
 }

@@ -102,9 +102,8 @@ bool defenderGameLayer::setUpdateView()
 		
 		auto SnailBar = snailBar::createPic();
 		SnailBar->setAnchorPoint(Point(1, 0.5));
-		SnailBar->setPosition(this->getWinSize().width - 360, this->getWinSize().height - 40);
+		SnailBar->setPosition(this->getWinSize().width -250, this->getWinSize().height - 40);
 		SnailBar->setScale(1.5);
-		SnailBar->setRunTime(60);   //wating to add
 		this->addChild(SnailBar, 3, 6);
 		SnailBar->runSnailAnimation();
 
@@ -115,10 +114,10 @@ bool defenderGameLayer::setUpdateView()
 		LevelSprite->setLevelNum(UserDefault::sharedUserDefault()->getIntegerForKey("lve", 1));
 		LevelSprite->runLevelShowAnimation();
 
-		GameTipsSprite* gameTipsSprite = GameTipsSprite::create();
+		auto gameTipsSprite = GameTipsSprite::create();
 		global->GgameTipsSprite = gameTipsSprite;
 		CC_BREAK_IF(!gameTipsSprite);
-		gameTipsSprite->setPosition(Point(145, getWinSize().height - 40));
+		gameTipsSprite->setPosition(Point(90, getWinSize().height - 40));
 		gameTipsSprite->setgoldNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0));
 		gameTipsSprite->setMonstNum(1);
 		gameTipsSprite->setMonstTotalNum(1);

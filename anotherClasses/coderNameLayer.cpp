@@ -37,8 +37,8 @@ bool coderNameLayer::setUpdateView()
 							Sprite::create("gmme/return_up.png"),
 							Sprite::create("gmme/return_down.png"),
 							CC_CALLBACK_1(coderNameLayer::MenuCallBack, this));
-		returnButton->setPosition(Point(getWinSize().width - returnButton->getContentSize().width,
-									returnButton->getContentSize().height));
+		returnButton->setPosition(Point(getWinSize().width - returnButton->getContentSize().width/2,
+									returnButton->getContentSize().height/2));
 
 		auto pMenu = Menu::create(returnButton,NULL);
 		pMenu->setPosition(Point::ZERO);
@@ -51,6 +51,6 @@ bool coderNameLayer::setUpdateView()
 void coderNameLayer::MenuCallBack(Ref* pSener)
 {
 	auto scene = welcomeLayer::createScene();
-	this->removeAllChildren();
-	Director::getInstance()->replaceScene(TransitionFadeDown::create(0.5f, scene));
+	//this->removeAllChildren();
+	Director::getInstance()->replaceScene(TransitionFlipX::create(0.5f, scene));
 }

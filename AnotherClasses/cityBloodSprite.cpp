@@ -34,7 +34,7 @@ bool cityBloodSprite::setUpdateView()
 		bloodBar->setMidpoint(Point(0, 0));
 		bloodBar->setBarChangeRate(Point(1, 0));
 		bloodBar->setPercentage(100);
-		bloodBar->setPosition(Point(91,45));
+		bloodBar->setPosition(Point(67,33));
 		this->addChild(bloodBar);
 
 		magicBar = ProgressTimer::create(Sprite::create("game/magic.png"));
@@ -42,7 +42,7 @@ bool cityBloodSprite::setUpdateView()
 		magicBar->setType(ProgressTimer::Type::BAR);
 		magicBar->setMidpoint(Point(0, 0));
 		magicBar->setBarChangeRate(Point(1, 0));
-		magicBar->setPosition(Point(87, 25));
+		magicBar->setPosition(Point(62, 19));
 		magicBar->setPercentage(100);
 		this->addChild(magicBar);
 

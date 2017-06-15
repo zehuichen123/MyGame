@@ -76,12 +76,6 @@ void Enemy::runDeadAction()
 {
 	this->stopAllActions();
 	this->runAction(this->getDeadAction());
-}
-
-void Enemy::deadCallBackAction(Node* pSender)
-{
-	this->setVisible(false);
-	global->GdefenderGameLayer->removeChild(this, true);
 	auto gameTipsSprite = global->GgameTipsSprite;
 	int goldnum = UserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0);
 	goldnum = 1 + goldnum;
@@ -90,7 +84,12 @@ void Enemy::deadCallBackAction(Node* pSender)
 
 	int killtemp = UserDefault::sharedUserDefault()->getIntegerForKey("killtemp", 1);
 	UserDefault::sharedUserDefault()->setIntegerForKey("killtemp", killtemp + 1);
-	
+}
+
+void Enemy::deadCallBackAction(Node* pSender)
+{
+	this->setVisible(false);
+	global->GdefenderGameLayer->removeChild(this, true);
 }
 void Enemy::runWalkAction()
 {

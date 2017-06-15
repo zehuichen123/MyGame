@@ -35,7 +35,7 @@ bool levelSprite::setUpdateView()
 		backGround->setPosition(Point::ZERO);
 		this->addChild(backGround,0);
 
-		auto number = LabelAtlas::create("0", "game/number_ttf.png", 72, 68, '0');
+		auto number = LabelAtlas::create("0", "game/number_ttf.png", 54.6, 50, '0');
 		number->setAnchorPoint(Point(0, 0.4));
 		number->setPosition(this->getContentSize() / 2);
 		//number->setPosition(Point(this->getContentSize()*3.4, this->getContentSize() / 2));
