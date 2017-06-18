@@ -1,4 +1,5 @@
 #include "snailBar.h"
+
 snailBar::snailBar():
 	runTime(30)
 {}
@@ -46,16 +47,18 @@ bool snailBar::setUpdateView()
 void snailBar::runSnailAnimation()
 {
 	auto barMove= ProgressFromTo::create( this->getRunTime(),8, 100);
-	//auto barMoveTwo=Sequence::create(barMove, CallFuncN::create(CC_CALLBACK_1(cityBloodSprite::gameCallBack, this)), NULL);
 	auto snailMove = MoveTo::create(this->getRunTime(), Point(-150, this->getContentSize().height / 2));
 	snail->runAction(snailMove);
+	//when the snail reach the destination,go to the GamesuccessfullyLayer
 	SnailBar->runAction(Sequence::create(barMove, CallFuncN::create(CC_CALLBACK_1(snailBar::gameCallBack, this)), NULL));
 }
 
 void snailBar::gameCallBack(Node* pSender)
 {
+	//get the current life value and pass it to the userDefault
 	auto bln = global->GcityBloodSprite->getCityBlood();
-	CCUserDefault::sharedUserDefault()->setIntegerForKey("lifetemp", bln);
+	UserDefault::sharedUserDefault()->setIntegerForKey("lifetemp", bln);
+
 	auto scene = GameSuccessfullyLayer::createScene();
 	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, scene));
 }

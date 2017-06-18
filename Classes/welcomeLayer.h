@@ -1,4 +1,7 @@
 #pragma once
+//The main scene 
+//begin/exit game or turn on/off the music
+
 #include "cocos2d.h"
 #include "BaseLayer.h"
 #include "coderNameLayer.h"

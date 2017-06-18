@@ -41,7 +41,7 @@ bool Enemy::init()
 		Animation *walkAnim = this->createNormalAnimation("dutu-1%d.png", 8, 8);
 		this->setWalkAction(RepeatForever::create(Animate::create(walkAnim)));
 
-		Animation *attackAnim = this->createAttackAnimation("dutu-2%d.png", 0, 8, 8);
+		Animation *attackAnim = this->createNormalAnimation("dutu-2%d.png", 8, 8);
 		this->setNormalAttackAction(RepeatForever::create(Animate::create(attackAnim)));
 
 		Animation *deadAnim = this->createNormalAnimation("dutu-3%d.png", 8, 8);
@@ -62,7 +62,7 @@ bool Enemy::init()
 void Enemy::runNormalAttackAction()
 {
 	this->runAction(this->getNormalAttackAction());
-	this->schedule(schedule_selector(Enemy::attackCallBackAction), 3, 20, 0);
+	this->schedule(schedule_selector(Enemy::attackCallBackAction),1, 20, 0);
 	
 }
 void Enemy::attackCallBackAction(float dt)
@@ -102,9 +102,8 @@ bool Enemy::beAttacked()
 	float currtLife = this->getcurLifeValue();
 	float currtDefence = this->getDefense();
 	currtLife = currtLife - hurt*(1 - currtDefence);
-	//currtLife -= hurt*(1-currtDefence*0.1);
 	this->setcurLifeValue(currtLife);
-	if (currtLife <= 0)
+	if (currtLife <= 0)						//judge the enemy is dead ?false:false:true
 	{
 		bloodValue->setPercentage(0);
 		this->runDeadAction();
@@ -115,26 +114,26 @@ bool Enemy::beAttacked()
 	return true;
 }
 
-void Enemy::beSkillAttack()
+bool Enemy::beSkillAttack()
 {
 	float hurt = getSkillHurt();
 	float currtLife = this->getcurLifeValue();
 	float currtDefence = this->getDefense();
 	currtLife = currtLife - hurt*(1 - currtDefence);
 	this->setcurLifeValue(currtLife);
-	if (currtLife <= 0)
+	if (currtLife <= 0)						//when the current value<0,enemy run dead action
 	{
 		bloodValue->setPercentage(0);
 		this->runDeadAction();
+		return false;
 	}
-	else
+	else									//set the enemy 's currt life value to the life value Bar
 		bloodValue->setPercentage(currtLife / this->getLifeValue() * 100);
+	return true;
 }
-
 
 void Enemy::Move()
 {
-
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	// Determine where to spawn the this along the Y axis
@@ -145,26 +144,24 @@ void Enemy::Move()
 	this->setPosition(Point(visibleSize.width + this->getContentSize().width / 2, actualY));
 	
 	auto actionMove = MoveTo::create(visibleSize.width/speed,
-		Point(visibleSize.width * 3 / 16, actualY));
-
+								Point(visibleSize.width * 3 / 16, actualY));
 	auto actionAttack = this->getNormalAttackAction();
 	auto actionWalk = this->getWalkAction();
-
-
 	auto actionMoveDone = CallFuncN::create(
 		CC_CALLBACK_1(Enemy::monsterMoveFinished, this));
-
-	//auto normalWalk = Spawn::create(actionMove, actionWalk);
 
 	this->runWalkAction();
 	this->runAction(Sequence::create(actionMove, actionMoveDone, NULL));
 }
+
+/* when the enemy reach the destination,begin to attck the citySprite */
 void Enemy::monsterMoveFinished(Ref* pSender)
 {
 	this->stopAllActions();
 	this->runNormalAttackAction();
 }
 
+/*update the enemy's current life value*/
 void Enemy::update(float dt)
 {
 	bloodValue->setPercentage((float)this->getcurLifeValue() / this->getLifeValue() * 100);

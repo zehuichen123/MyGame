@@ -51,6 +51,5 @@ bool coderNameLayer::setUpdateView()
 void coderNameLayer::MenuCallBack(Ref* pSener)
 {
 	auto scene = welcomeLayer::createScene();
-	//this->removeAllChildren();
 	Director::getInstance()->replaceScene(TransitionFlipX::create(0.5f, scene));
 }

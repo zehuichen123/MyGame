@@ -1,12 +1,13 @@
 #include "magicSkillButton.h"
 magicSkillButton::magicSkillButton():
 	avail(true),
-	cost(10)
+	cost(20)
 {
 }
 magicSkillButton::~magicSkillButton()
 {
 }
+
 magicSkillButton* magicSkillButton::create(char* Icon)
 {
 	auto skillButton = new magicSkillButton();
@@ -37,10 +38,7 @@ bool magicSkillButton::setUpdateView(char* Icon)
 
 		cdBar = ProgressTimer::create(Sprite::create("game/cdSkillButton.png"));
 		cdBar->setPercentage(0);
-		//cdBar->setAnchorPoint(Point(0.5, 0.5));
 		cdBar->setType(ProgressTimer::Type::RADIAL);
-		//cdBar->setBarChangeRate(Point(1, 0));
-		//cdBar->setMidpoint(Point(0, 0));
 		cdBar->setPosition(this->getContentSize()/2);
 		this->addChild(cdBar,2);
 
@@ -53,6 +51,7 @@ bool magicSkillButton::setUpdateView(char* Icon)
 	} while (0);
 	return ret;
 }
+
 void magicSkillButton::runCDAnimation()
 {
 	if (this->avail)
@@ -76,26 +75,24 @@ void magicSkillButton::runSkillAnimationA(Layer* layer,Point point)
 {
 	if(this->avail)
 	{ 
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("specia/diyu.plist", "specia/diyu.png");
-	auto monst = Sprite::create();
-	monst->initWithSpriteFrameName("diyu0.png");
-	Animation *yellowAnim = Role::createNormalAnimation("diyu%d.png", 15, 8);
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("specia/diyu.plist", "specia/diyu.png");
+		auto monst = Sprite::create();								//add skill animation
+		monst->initWithSpriteFrameName("diyu0.png");            
+		auto yellowAnim = Role::createNormalAnimation("diyu%d.png", 15, 8);
 
-	//CCAnimation *animation = CCAnimation::createWithSpriteFrames(sperci, 0.15f);
-	CCAnimate *animate = CCAnimate::create(yellowAnim);
-	CCSequence* pse = CCSequence::create(animate,CallFuncN::create(CC_CALLBACK_1(magicSkillButton::skillCallBack,this)), NULL);
-	monst->setAnchorPoint(this->getAnchorPoint());
-	monst->setPosition(point - Point(200, 200));
-	layer->addChild(monst, 3);
+		auto animate = Animate::create(yellowAnim);
+		auto pse = Sequence::create(animate,CallFuncN::create(CC_CALLBACK_1(magicSkillButton::skillCallBack,this)), NULL);
+		monst->setAnchorPoint(this->getAnchorPoint());
+		monst->setPosition(point - Point(200, 200));				//correct skill animation's exact position
+		layer->addChild(monst, 3);
 
-	//monst->runAction(CCRepeatForever::create(pse));
-
-	//this->avail = false;//设为不可用
-	this->cdBar->setPercentage(0);
-	this->runCDAnimation();
-	monst->runAction(pse);
+		this->cdBar->setPercentage(0);				//set the button's cdBar to 0
+		this->runCDAnimation();
+		monst->runAction(pse);
 	}
 }
+
+/*runSkillAnimationB and runSkillAnimaitonC is similar to runSkillAnimationA*/
 void magicSkillButton::runSkillAnimationB(Layer* layer,Point point)
 {
 	if (this->avail)
@@ -105,15 +102,12 @@ void magicSkillButton::runSkillAnimationB(Layer* layer,Point point)
 		monst->initWithSpriteFrameName("light0.png");
 		Animation *purpleAnim = Role::createNormalAnimation("light%d.png", 17, 8);
 
-		auto *animate = Animate::create(purpleAnim);
-		CCSequence* pse = CCSequence::create(animate, CallFuncN::create(CC_CALLBACK_1(magicSkillButton::skillCallBack, this)), NULL);
+		auto animate = Animate::create(purpleAnim);
+		auto pse = Sequence::create(animate, CallFuncN::create(CC_CALLBACK_1(magicSkillButton::skillCallBack, this)), NULL);
 		monst->setAnchorPoint(this->getAnchorPoint());
 		monst->setPosition(point - Point(300, 300));
 		layer->addChild(monst, 3);
 
-		//monst->runAction(CCRepeatForever::create(pse));
-
-		//this->avail = false;//设为不可用
 		this->cdBar->setPercentage(0);
 		this->runCDAnimation();
 		monst->runAction(pse);
@@ -134,25 +128,17 @@ void magicSkillButton::runSkillAnimationC(Layer* layer,Point point)
 		monst->setPosition(point - Point(200, 200));
 		layer->addChild(monst, 3);
 
-		this->detected(point);
-		//this->avail = false;
 		this->cdBar->setPercentage(0);
 		this->runCDAnimation();
 		monst->runAction(pse);
 	}
 }
 
-void magicSkillButton::detected(Point point)
-{
-	
-}
-
 void magicSkillButton::skillCallBack(Node* pSender)
 {
 	auto monst = (Sprite*)pSender;
-	auto de = (Layer*)monst->getParent();
-	de->removeChild(pSender, true);
-
+	auto index = (Layer*)monst->getParent();
+	index->removeChild(pSender, true);
 }
 
 

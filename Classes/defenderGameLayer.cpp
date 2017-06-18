@@ -18,6 +18,7 @@ void defenderGameLayer::onEnter()
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
 
+	//the weapon will point to the direction where you touch
 	listener->onTouchBegan = [=](Touch* touch, Event* event) {
 		auto rota = this->getRotaSize(touch);
 		auto weaponAction = RotateTo::create(0.2f, rota);
@@ -57,22 +58,26 @@ bool defenderGameLayer::setUpdateView()
 		auto visibleSize = Director::getInstance()->getVisibleSize();
 		auto visibleOrigin = Director::getInstance()->getVisibleOrigin();
 
+		//create a gameBackground
 		auto backGround = Sprite::create("gmbg/gamebg.png");
 		backGround->setScale(1.3);
 		backGround->setPosition(getWinCenter());
 		this->addChild(backGround);
 
+		//create the weapon where you can lauch your arrow
 		weapon = Sprite::create("game/weapon.png");
 		weapon->setPosition(
 			weapon->getContentSize().width / 2 + visibleOrigin.x,
 			visibleOrigin.y + visibleSize.height / 2);
 		this->addChild(weapon);
 
+		//create a sample arrow
 		bulletSample = Sprite::create("game/bullet.png");
 		bulletSample->setAnchorPoint(Point(0, 0.5));
 		bulletSample->setPosition(weapon->getPosition());
 		this->addChild(bulletSample);
 
+		//add the pause button
 		auto pause = MenuItemSprite::create(
 			Sprite::create("gmme/pause_button.png"),
 			Sprite::create("gmme/pause_button.png"),
@@ -80,12 +85,14 @@ bool defenderGameLayer::setUpdateView()
 		pause->setAnchorPoint(Point(0, 1));
 		pause->setPosition(20, getWinSize().height - 20);
 
+		//add the magic matrix (show you where you can release your skill)
 		auto matrix = Sprite::create("game/MagicMatrix.png");
 		matrix->setVisible(false);
 		matrix->setPosition(visibleSize.width / 6 * 8, visibleSize.height / 15);
 		this->addChild(matrix);
-		global->Gmatrix = matrix;
+		global->Gmatrix = matrix;					//add matrix to the global(use it afterwards)
 
+		//add citySpriteBlood 
 		auto bloodBg = Sprite::create("game/panelblood.png");
 		bloodBg->setAnchorPoint(Point(0, 0));
 		bloodBg->setPosition(Point::ZERO);
@@ -93,13 +100,11 @@ bool defenderGameLayer::setUpdateView()
 		this->addChild(bloodBg,5);
 
 		auto blood = cityBloodSprite::create();
-		
 		blood->setPosition(Point::ZERO);
-		//blood->setScale(1.3);
 		bloodBg->addChild(blood);
-		//bloodBg->scheduleUpdate();
-		global->GcityBloodSprite = blood;
+		global->GcityBloodSprite = blood;			//add cityBloodSprite to the global
 		
+		//add the snail bar
 		auto SnailBar = snailBar::createPic();
 		SnailBar->setAnchorPoint(Point(1, 0.5));
 		SnailBar->setPosition(this->getWinSize().width -250, this->getWinSize().height - 40);
@@ -107,6 +112,7 @@ bool defenderGameLayer::setUpdateView()
 		this->addChild(SnailBar, 3, 6);
 		SnailBar->runSnailAnimation();
 
+		//add the level show sprite
 		auto LevelSprite = levelSprite::createNum();
 		LevelSprite->setPosition(getWinCenter());
 		this->addChild(LevelSprite, 2, 7);
@@ -114,36 +120,39 @@ bool defenderGameLayer::setUpdateView()
 		LevelSprite->setLevelNum(UserDefault::sharedUserDefault()->getIntegerForKey("lve", 1));
 		LevelSprite->runLevelShowAnimation();
 
+		//add gameTipSprite
 		auto gameTipsSprite = GameTipsSprite::create();
 		global->GgameTipsSprite = gameTipsSprite;
 		CC_BREAK_IF(!gameTipsSprite);
 		gameTipsSprite->setPosition(Point(90, getWinSize().height - 40));
-		gameTipsSprite->setgoldNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0));
 		gameTipsSprite->setMonstNum(1);
 		gameTipsSprite->setMonstTotalNum(1);
-		//gameTipsSprite->setMonstTotalNum(this->monsterBatch);
+
+		//get the goldnum and stagenum from the userDefault
+		gameTipsSprite->setgoldNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0));
 		gameTipsSprite->setStageNum(CCUserDefault::sharedUserDefault()->getIntegerForKey("lve", 1));
 		this->addChild(gameTipsSprite, 3, 8);
 
 		auto _Menu = Menu::create(pause, NULL);
-		//CC_BREAK_IF(!_Menu);
+		CC_BREAK_IF(!_Menu);
 		_Menu->setPosition(Point::ZERO);
 		this->addChild(_Menu);
 
-		
+		//set the sample bullet visible every 0.4s
+		schedule(schedule_selector(defenderGameLayer::updateCustom), 0.4f, kRepeatForever, 0);   
+		//add a enemy every 1s
+		this->schedule(schedule_selector(defenderGameLayer::addEnemy), 1.0f);			
 
-		schedule(schedule_selector(defenderGameLayer::updateCustom), 0.4f, kRepeatForever, 0);
-		this->schedule(schedule_selector(defenderGameLayer::addEnemy), 1.0f);
-
+		//init the _bullet and _enmey Array
 		_bullet = __Array::create();
 		_bullet->retain();
 		_enemy = __Array::create();
 		_enemy->retain();
-		global->Genemy = _enemy;
-		//_Array* toDeleteEnemy;
+		global->Genemy = _enemy;				//add _enmey to the global
+
+		//init the toDeleteEnemy Array
 		toDeleteEnemy = __Array::create();
 		toDeleteEnemy->retain();
-		//__Array* toDeleteBullet;
 		toDeleteBullet = __Array::create();
 		toDeleteBullet->retain();
 
@@ -199,7 +208,6 @@ void defenderGameLayer::onTouchEnded(Touch* touch, Event* event)
 void defenderGameLayer::bulletMoveFinished(Ref* pSender)
 {
 	Sprite* bullet = (Sprite*)pSender;
-	//this->removeChild(bullet);
 	_bullet->removeObject(bullet);
 }
 
@@ -209,9 +217,9 @@ float defenderGameLayer::getRotaSize(Touch* touch)
 	Point weaponPos = weapon->getPosition();
 	float chy = touchPos.y - weaponPos.y;
 	float chx = touchPos.x - weaponPos.x;
-	float hud = std::atan(chy / chx);
+	float angle = std::atan(chy / chx);
 
-	float rota = -(hud*(180 / PI));
+	float rota = -(angle*(180 / PI));
 	return rota;
 }
 
@@ -226,9 +234,7 @@ void defenderGameLayer::addEnemy(float dt)
 	auto target = Enemy::create();
 	target->Enemy::Move();
 	_enemy->addObject(target);
-	//target->setPosition(getWinCenter());
 	this->addChild(target);
-
 }
 
 void defenderGameLayer::update(float dt)
@@ -261,7 +267,6 @@ void defenderGameLayer::update(float dt)
 		{
 			auto EnemyToDelete = toDeleteEnemy->objectAtIndex(p);
 			_enemy->removeObject(EnemyToDelete);
-			//this->removeChild((Node*)EnemyToDelete);
 		}
 		toDeleteEnemy->removeAllObjects();
 	}
@@ -278,6 +283,5 @@ void defenderGameLayer::pauseCallBack(Ref* pSender)
 {
 	auto pauseLayer = GamePause::create();
 	pauseLayer->setAnchorPoint(Point(0.5, 0.5));
-	//pauseLayer->setPosition(getWinCenter());
 	this->addChild(PopupLayer::create(pauseLayer),4);
 }

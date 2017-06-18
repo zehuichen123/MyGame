@@ -23,6 +23,7 @@ bool GamePause::setUpdateView()
 		pauseBg->setPosition(getWinCenter());
 		this->addChild(pauseBg);
 
+		//create a button back to the welcomeLayer
 		auto homeBack = MenuItemSprite::create(
 			Sprite::create("gmme/btn_home_up.png"),
 			Sprite::create("gmme/btn_home_down.png"),
@@ -31,6 +32,7 @@ bool GamePause::setUpdateView()
 		homeBack->setPosition(getWinCenter());
 		homeBack->setPositionX(homeBack->getPosition().x - 80);
 
+		//create a resume button
 		auto resumeBack = MenuItemSprite::create(
 			Sprite::create("gmme/btn_resume_up.png"),
 			Sprite::create("gmme/btn_resume_down.png"),
@@ -38,6 +40,7 @@ bool GamePause::setUpdateView()
 		resumeBack->setAnchorPoint(Point(0.5, 0.5));
 		resumeBack->setPosition(getWinCenter());
 
+		//create a retry button
 		auto retryBack = MenuItemSprite::create(
 			Sprite::create("gmme/btn_retry_up.png"),
 			Sprite::create("gmme/btn_retry_down.png"),
@@ -60,13 +63,14 @@ void GamePause::homeCallBack(Ref* pSender)
 	Scene* scene = welcomeLayer::createScene();
 	Director::getInstance()->replaceScene(TransitionMoveInL::create(0.5, scene));
 	Director::getInstance()->resume();
-	this->removeAllChildrenWithCleanup(true);
 }
+
 void GamePause::resumeCallBack(Ref* pSender)
 {
-	getParent()->removeFromParent();
+	this->getParent()->removeFromParent();
 	Director::getInstance()->resume();
 }
+
 void GamePause::retryCallBack(Ref* pSender)
 {
 	Director::getInstance()->resume();

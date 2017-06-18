@@ -9,7 +9,7 @@
 #include "cityBloodSprite.h"
 USING_NS_CC;
 
-//declare these class,or will report error
+//declare these class,or it will report error
 class defenderGameLayer;
 class Enemy;
 class cityBloodSprite;
@@ -27,7 +27,6 @@ public:
 	Sprite* Gmatrix;
 	__Array* Genemy;
 	__Array* GtoDeleteBullet;
-	//bool Gavail;
 };
 #define global Global::instance()
 #endif

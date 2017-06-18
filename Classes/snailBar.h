@@ -1,3 +1,7 @@
+//this is a UI control widget
+//when the snail reach the destination,
+//then you pass this level successfully !
+
 #pragma once
 #include "cocos2d.h"
 #include "cityBloodSprite.h"
@@ -9,12 +13,14 @@ public:
 	static snailBar* createPic();
 	void runSnailAnimation();
 	void gameCallBack(Node * pSender);
-	//void setSnailProgress(float progress);
+	
 	CC_SYNTHESIZE(float, runTime, RunTime);
-	//void initialization();
+	
 private:
+	
 	bool setUpdateView();
 	Sprite* snailBg;
-	ProgressTimer* SnailBar;
 	Sprite* snail;
+	ProgressTimer* SnailBar;
+
 };

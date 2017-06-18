@@ -1,12 +1,11 @@
 #include "gameOverLayer.h"
 #include "defenderGameLayer.h"
-using namespace cocos2d;
+USING_NS_CC;
 gameOverLayer::gameOverLayer(void)
-{
-}
+{}
 gameOverLayer::~gameOverLayer(void)
-{
-}
+{}
+
 bool gameOverLayer::init()
 {
 	bool ret = false;
@@ -18,6 +17,7 @@ bool gameOverLayer::init()
 
 	return ret;
 }
+
 Scene* gameOverLayer::createScene()
 {
 	auto scene = Scene::create();
@@ -31,20 +31,21 @@ bool gameOverLayer::setUpdateView()
 	bool isRet = false;
 	do
 	{
-		auto pbg=Sprite::create("gmbg/gameoverbg.png");
-		pbg->setAnchorPoint(Point(0.5, 0.5));
-		pbg->setPosition(getWinCenter());
-		this->addChild(pbg, 1);
-		pbg->setOpacity(10);
+		auto GameOverBg=Sprite::create("gmbg/gameoverbg.png");
+		GameOverBg->setAnchorPoint(Point(0.5, 0.5));
+		GameOverBg->setPosition(getWinCenter());
+		this->addChild(GameOverBg, 1);
+		GameOverBg->setOpacity(100);
 
-		auto pgameover = Sprite::create("game/gameover.png");
-		pgameover->setPosition(getWinCenter());
-		this->addChild(pgameover, 2);
+		//create gameover tips 
+		auto GameOver = Sprite::create("game/gameover.png");
+		GameOver->setPosition(getWinCenter());
+		this->addChild(GameOver, 2);
 
-		auto pgameovertips = Sprite::create("game/gameovertips.png");
-		pgameovertips->setPosition(getWinCenter());
-		pgameovertips->setPositionY(pgameovertips->getPositionY() + pgameover->getContentSize().height);
-		this->addChild(pgameovertips, 3);
+		auto gameoverTips = Sprite::create("game/gameovertips.png");
+		gameoverTips->setPosition(getWinCenter());
+		gameoverTips->setPositionY(gameoverTips->getPositionY() +2* gameoverTips->getContentSize().height);
+		this->addChild(gameoverTips, 3);
 
 		isRet = true;
 	} while (0);

@@ -1,3 +1,7 @@
+//this is a basic class 
+//its inside structure is similiar to cocos2d::Director
+//you can see the similiar code in functions: `getInstance` and `autorelease`
+
 #pragma once
 using namespace std;
 template<class T>

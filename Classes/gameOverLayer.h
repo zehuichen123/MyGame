@@ -8,10 +8,11 @@ public:
 	gameOverLayer();
 	~gameOverLayer();
 	virtual bool init();
-	static Scene* createScene();
-	bool setUpdateView();
-	CREATE_FUNC(gameOverLayer);
 	void onEnter();
-	virtual bool onTouchBegan(Touch *touch,Event *event);
+	bool onTouchBegan(Touch *touch, Event *event);
+	static Scene* createScene();
+	CREATE_FUNC(gameOverLayer);
+private:
+	bool setUpdateView();
 };
 #endif

@@ -1,3 +1,6 @@
+//this is a game pause interface 
+//we use popupLayer to show it
+
 #pragma once
 #include "cocos2d.h"
 #include "BaseLayer.h"
@@ -8,14 +11,11 @@ public:
 	GamePause();
 	~GamePause();
 	virtual bool init();
-	//void onEnter();
-	//virtual bool onTouchBegan(Touch* touch, Event* event);
-	//virtual void onTouchEnded(Touch* touch, Event* evnet);
 	CREATE_FUNC(GamePause);
-	bool setUpdateView();
+	
 private:
 	void homeCallBack(Ref* pSender);
 	void resumeCallBack(Ref* pSender);
 	void retryCallBack(Ref* pSender);
-
+	bool setUpdateView();
 };

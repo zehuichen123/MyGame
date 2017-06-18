@@ -1,13 +1,12 @@
 #include "GameSuccessfullyLayer.h"
 #include "DefenderGameLayer.h"
 USING_NS_CC;
-GameSuccessfullyLayer::GameSuccessfullyLayer() {
-
-}
-GameSuccessfullyLayer::~GameSuccessfullyLayer() {
-
-}
-CCScene* GameSuccessfullyLayer::createScene() {
+GameSuccessfullyLayer::GameSuccessfullyLayer()
+{}
+GameSuccessfullyLayer::~GameSuccessfullyLayer() 
+{}
+CCScene* GameSuccessfullyLayer::createScene()
+{
 	auto scene = Scene::create();
 	auto layer = GameSuccessfullyLayer::create();
 	scene->addChild(layer);
@@ -24,21 +23,21 @@ bool GameSuccessfullyLayer::init() {
 	return ret;
 }
 bool GameSuccessfullyLayer::setUpdateView() {
-	bool isRet = false;
+	bool ret = false;
 	do
 	{
 		auto visibleSize = Director::getInstance()->getVisibleSize();
 		char temp[12];
-		// 添加背景图片
+		// add background pic
 		auto laybg=Sprite::create("gmbg/stats_bg.png");
 		laybg->setScale(1.3);
 		CC_BREAK_IF(!laybg);
 		laybg->setPosition(getWinCenter());
 		this->addChild(laybg);
-		// 添加当前关卡
+		// add current level
 		auto stage = LabelAtlas::create("0", "game/numWhite.png", 25, 45, '0');
 		CC_BREAK_IF(!stage);
-		int lve = UserDefault::sharedUserDefault()->getIntegerForKey("lve", 1);
+		int lve = UserDefault::sharedUserDefault()->getIntegerForKey("lve", 1);			//get it from the userDefault
 		sprintf(temp, "%d", lve);
 		stage->setString(temp);
 		stage->setAnchorPoint(Point(0, 0));
@@ -46,7 +45,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		this->addChild(stage, 1);
 		CCUserDefault::sharedUserDefault()->setIntegerForKey("lve", lve + 1);
 
-		// 添加击杀怪物数目
+		// the amount of monsters you've killed
 		auto killcount = LabelAtlas::create("0", "game/numWhite.png", 25, 45, '0');
 		CC_BREAK_IF(!killcount);
 		int killtemp = UserDefault::sharedUserDefault()->getIntegerForKey("killtemp", 10);
@@ -58,7 +57,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		CCUserDefault::sharedUserDefault()->setIntegerForKey("killtemp", 0);
 
 
-		// 显示剩余生命值
+		// show the current life value
 		auto lifecount = LabelAtlas::create("0", "game/numWhite.png", 25, 45, '0');
 		CC_BREAK_IF(!lifecount);
 		int lifetemp = UserDefault::sharedUserDefault()->getIntegerForKey("lifetemp", 100);
@@ -69,7 +68,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		this->addChild(lifecount, 1);
 		CCUserDefault::sharedUserDefault()->setIntegerForKey("lifetemp", 100);
 
-		// 显示击杀奖励 规定杀死一个怪经历1个金币
+		// show the award of kill num（击杀奖励）
 		auto killbound = LabelAtlas::create("0", "game/numWhite.png", 25, 45, '0');
 		CC_BREAK_IF(!killbound);
 		sprintf(temp, "%d", killtemp);
@@ -78,7 +77,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		killbound->setPosition(visibleSize.width * 55 / 100, visibleSize.height * 420/970 );
 		this->addChild(killbound, 1);
 
-		// 显示生命值奖励 一点生命值奖励一个金币
+		// show the award of remained life value(生命值奖励）
 		auto lifebound = LabelAtlas::create("0", "game/numWhite.png", 25, 45, '0');
 		CC_BREAK_IF(!lifebound);
 		sprintf(temp, "%d", lifetemp);
@@ -88,7 +87,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		this->addChild(lifebound, 1);
 
 
-		// 显示关卡奖励 一个过一关奖励5个金币
+		// show the award of current level(关卡奖励)
 		auto goldbound = LabelAtlas::create("0", "game/numWhite.png", 25, 45, '0');
 		CC_BREAK_IF(!goldbound);
 		sprintf(temp, "%d", lve * 5);
@@ -98,7 +97,7 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		this->addChild(goldbound, 1);
 
 
-		// 显示显示总奖励金币
+		//show the total num of award
 		auto total = LabelAtlas::create("0", "game/numWhite.png", 25, 45, '0');
 		CC_BREAK_IF(!total);
 		int totalnum = lve * 5 + lifetemp + killtemp;
@@ -108,39 +107,39 @@ bool GameSuccessfullyLayer::setUpdateView() {
 		total->setPosition(visibleSize.width * 51 / 100, visibleSize.height * 13/97 );
 		this->addChild(total, 1);
 
-		// 加上总金币
+		// sum the total num to the userDefault
 		int goldnum = UserDefault::sharedUserDefault()->getIntegerForKey("goldNum", 0);
 		UserDefault::sharedUserDefault()->setIntegerForKey("goldNum", totalnum + goldnum);
 
-		// 创建当前提示信息
-
+		//click to continue information
 		auto tip = Sprite::create("game/statstip.png");
 		CC_BREAK_IF(!tip);
 		tip->setPosition(ccp(this->getContentSize().width / 2, 30));
 		this->addChild(tip, 1);
 		tip->runAction(RepeatForever::create(Blink::create(1, 1)));
 
-
-		isRet = true;
+		ret = true;
 	} while (0);
-	return isRet;
+	return ret;
 }
 
-
-void GameSuccessfullyLayer::onEnter() {
+void GameSuccessfullyLayer::onEnter() 
+{
 	BaseLayer::onEnter();
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(GameSuccessfullyLayer::onTouchBegan, this);
 	this->setSwallowsTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
-bool GameSuccessfullyLayer::onTouchBegan(Touch *touch,Event *event) {
-	auto se = defenderGameLayer::createScene();
-	//CCScene* se=GameSuccessfullyLayer::scene();
-	Director::getInstance()->replaceScene(TransitionSlideInR::create(1, se));
+
+bool GameSuccessfullyLayer::onTouchBegan(Touch *touch,Event *event) 
+{
+	auto nextLevel = defenderGameLayer::createScene();
+	Director::getInstance()->replaceScene(TransitionSlideInR::create(1,nextLevel));
 	return true;
 }
 
-void GameSuccessfullyLayer::onExit() {
+void GameSuccessfullyLayer::onExit() 
+{
 	BaseLayer::onExit();
 }

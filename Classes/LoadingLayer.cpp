@@ -21,32 +21,27 @@ bool LoadingLayer::init()
 	do {
 		CC_BREAK_IF(!Layer::init());
 		CC_BREAK_IF(!this->setUpdateView());
-		CCTextureCache::getInstance()->addImageAsync
+
+		//simulate the loading interface
+		TextureCache::getInstance()->addImageAsync
 					("gmbg/loadingbg.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this));
-		CCTextureCache::getInstance()->addImageAsync
-					("gmbg/welcomebg.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 欢迎界面 背景图片
-		//this->loadCallBack();
-		CCTextureCache::getInstance()->addImageAsync
-					("gmbg/coder.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 添加关于开发者背景图片
-		//this->loadCallBack();
-		CCTextureCache::getInstance()->addImageAsync
-					("gmme/button_sound_on.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 欢迎界面 声音开始
-		//this->loadCallBack();
-		CCTextureCache::getInstance()->addImageAsync
-					("gmme/button_sound_off.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 欢迎界面 声音关闭
-		//this->loadCallBack();
-		CCTextureCache::getInstance()->addImageAsync
-					("gmme/coder_up.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 欢迎界面 开发者按钮
-		//this->loadCallBack();
-		CCTextureCache::getInstance()->addImageAsync
-					("gmme/coder_down.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 欢迎界面 开发者按钮
-		//this->loadCallBack();
-		CCTextureCache::getInstance()->addImageAsync
-					("gmme/return_down.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 返回菜单按钮
-		//this->loadCallBack();
-		CCTextureCache::getInstance()->addImageAsync
-					("gmme/return_up.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); // 返回菜单按钮
-		//this->loadCallBack();
+		TextureCache::getInstance()->addImageAsync
+					("gmbg/welcomebg.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+		TextureCache::getInstance()->addImageAsync
+					("gmbg/coder.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+		TextureCache::getInstance()->addImageAsync
+					("gmme/button_sound_on.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+		TextureCache::getInstance()->addImageAsync
+					("gmme/button_sound_off.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+		TextureCache::getInstance()->addImageAsync
+					("gmme/coder_up.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+		TextureCache::getInstance()->addImageAsync
+					("gmme/coder_down.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+		TextureCache::getInstance()->addImageAsync
+					("gmme/return_down.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+		TextureCache::getInstance()->addImageAsync
+					("gmme/return_up.png",CC_CALLBACK_0(LoadingLayer::loadCallBack,this)); 
+
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("specia/thumbnails.plist", "specia/thumbnails.png");
 		ret = true;
 	} while (0);
@@ -79,7 +74,7 @@ void LoadingLayer::loadCallBack()
 {
 	loadingNum++;
 	float now = loadingProcess->getPercentage();
-	loadingProcess->setPercentage(100/totalNum+now);
+	loadingProcess->setPercentage((float)loadingNum/(float)totalNum*100);
 	if(loadingNum<totalNum)
 	{}
 	else
@@ -91,5 +86,5 @@ void LoadingLayer::loadCallBack()
 
 void LoadingLayer::goWelcomeLayer()
 {
-	Director::getInstance()->replaceScene(TransitionFadeDown::create(0.01f,welcomeLayer::createScene()));
+	Director::getInstance()->replaceScene(welcomeLayer::createScene());
 }

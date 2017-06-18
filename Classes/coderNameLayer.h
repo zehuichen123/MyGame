@@ -1,3 +1,7 @@
+//this is a layer to show 
+//the name of all developers' name
+//with a return button and a pic
+
 #pragma once
 #include "cocos2d.h"
 #include "BaseLayer.h"

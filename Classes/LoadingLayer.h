@@ -1,3 +1,6 @@
+//simulate the loading interface 
+//at the beginning.
+
 #pragma once
 #include "cocos2d.h"
 #include "BaseLayer.h"
@@ -9,12 +12,13 @@ public:
 	~LoadingLayer();
 	bool init();
 	static Scene* createScene();
-	void loadCallBack();
 	void goWelcomeLayer();
 	CREATE_FUNC(LoadingLayer);
 private:
 	int loadingNum;
 	int totalNum;
 	ProgressTimer* loadingProcess;
+
 	bool setUpdateView();
+	void loadCallBack();
 };

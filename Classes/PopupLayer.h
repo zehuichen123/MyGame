@@ -1,3 +1,6 @@
+//this is a Layer which can 
+//pop up the layer above the current layer
+//along with the BarrierLayer
 #pragma once
 #include "cocos2d.h"
 #include "BarrierLayer.h"

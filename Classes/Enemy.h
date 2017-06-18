@@ -1,5 +1,4 @@
-/*this class is similar to Hero,
-	so i won't give too much annotation*/
+//Enemy is a class inherited from Role
 
 #pragma once
 #include "cocos2d.h"
@@ -10,28 +9,25 @@ USING_NS_CC;
 class Enemy :public Role {
 
 public:
+
 	Enemy();
 	~Enemy();
+
 	bool setUpdateView();
 	bool init();
-	//void updateSelf();
 	void update(float dt);
-	CREATE_FUNC(Enemy);
-
-	CC_SYNTHESIZE(float, actualDuration, ActualDuration);
-	
 	bool beAttacked();
-
-	void beSkillAttack();
-
+	bool beSkillAttack();
 	void runWalkAction();
 	void runNormalAttackAction();
 	void runDeadAction();
 	void monsterMoveFinished(Ref* pSender);
-	void Move();
-	//void underAttack();
+	void Move();	
+	CREATE_FUNC(Enemy);
 private:
+
 	ProgressTimer* bloodValue;
+
 	void attackCallBackAction(float dt);
 	void deadCallBackAction(Node* pSender);
 };

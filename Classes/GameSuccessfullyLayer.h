@@ -1,3 +1,7 @@
+//if you pass one level successfully,
+//you will see this scene which is 
+//a settlement page
+
 #pragma once
 #ifndef __GAMESUCCESSFULLY_LAYER_H__
 #define __GAMESUCCESSFULLY_LAYER_H__

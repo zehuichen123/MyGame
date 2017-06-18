@@ -1,3 +1,5 @@
+//show the current level
+
 #pragma once
 #include "cocos2d.h"
 USING_NS_CC;

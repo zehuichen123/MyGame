@@ -1,3 +1,7 @@
+//it is a derive class 
+//which will be inherted by 
+//other classes like defenderGameLayer
+
 #pragma once
 #include "cocos2d.h"
 USING_NS_CC;

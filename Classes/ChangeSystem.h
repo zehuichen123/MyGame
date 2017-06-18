@@ -7,10 +7,8 @@ class   ChangeSystem {
 public:
 	ChangeSystem();
 	~ChangeSystem();
-	//根据怪物类型和当前等级 获取怪物的伤害提升值
-	static int hurtImprove(); // 传入参数怪物类型
-	static int speedImprove();//根据关卡和怪物类型获获取提升能力值
-	static float defendImprove();
-
+	static int hurtImprove();						// improve the enmey's ATK
+	static int speedImprove();						//improve the enmey's movespeed
+	static float defendImprove();					//improve the enemy's defensive power
 };
 #endif   

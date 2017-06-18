@@ -6,8 +6,7 @@ cityBloodSprite::cityBloodSprite():
 	CCLOG("cityBloodSpriteOn");
 }
 cityBloodSprite::~cityBloodSprite()
-{
-}
+{}
 cityBloodSprite* cityBloodSprite::create()
 {
 	auto bloodSprite = new cityBloodSprite();
@@ -46,6 +45,7 @@ bool cityBloodSprite::setUpdateView()
 		magicBar->setPercentage(100);
 		this->addChild(magicBar);
 
+		//recover your blue bar every 1s with 1 point
 		this->schedule(schedule_selector(cityBloodSprite::recoverMagic), 1.0f);
 		ret = true;
 	} while (0);
@@ -58,7 +58,7 @@ void cityBloodSprite::beAttack(float hurt)
 	if (currCityBlood - hurt > 0)
 	{
 		this->setCityBlood(currCityBlood - hurt);
-		bloodBar->setPercentage(this->getCityBlood());
+		bloodBar->setPercentage(currCityBlood-hurt);
 	}
 	else {
 		auto scene = gameOverLayer::createScene();
@@ -69,13 +69,13 @@ void cityBloodSprite::beAttack(float hurt)
 bool cityBloodSprite::magicCost(float value)
 {
 	auto currMagicValue = this->getMagicValue();
-	if (currMagicValue - value > 0)
+	if (currMagicValue - value > 0)		//the remained blue bar is enough for a skill use return true
 	{
 		this->setMagicValue(currMagicValue - value);
 		magicBar->setPercentage(this->getMagicValue());
-		return true;
+		return true;			
 	}
-	else
+	else								//can use the skill
 	{
 		return false;
 	}
