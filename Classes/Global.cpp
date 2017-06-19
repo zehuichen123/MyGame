@@ -15,4 +15,5 @@ Global::~Global()
 	Gmatrix = NULL;
 	Genemy = NULL;
 	GtoDeleteBullet = NULL;
+	GindexLayer = NULL;
 }
