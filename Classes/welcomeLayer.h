@@ -1,12 +1,10 @@
 #pragma once
-//The main scene 
-//begin/exit game or turn on/off the music
-
 #include "cocos2d.h"
 #include "BaseLayer.h"
 #include "coderNameLayer.h"
 #include "defenderGameLayer.h"
 #include "SimpleAudioEngine.h"
+#include "MapLayer.h"
 using namespace CocosDenshion;
 USING_NS_CC;
 class welcomeLayer :public BaseLayer {
@@ -25,4 +23,5 @@ private:
 	void clickCallBack(Ref* pSender);
 	void coderNameCallBack(Ref* pSender);
 	void playCallBack(Ref * pSender);
+	void play_2CallBcak(Ref* pSender);
 };
