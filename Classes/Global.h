@@ -27,6 +27,7 @@ public:
 	Sprite* Gmatrix;
 	__Array* Genemy;
 	__Array* GtoDeleteBullet;
+	Layer* GindexLayer;
 };
 #define global Global::instance()
 #endif
