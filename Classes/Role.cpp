@@ -20,7 +20,7 @@ Role::Role() :
 
 	//improve enemy's ATK
 	auto originHurt = this->getDamageStrength();
-	this->setDamageStrength(originHurt + ChangeSystem::hurtImprove());
+	this->setDamageStrength(originHurt +0.3* ChangeSystem::hurtImprove());
 
 	//improve enemy's move speed
 	auto originSpeed = this->getSpeed();

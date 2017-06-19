@@ -62,8 +62,7 @@ bool Enemy::init()
 void Enemy::runNormalAttackAction()
 {
 	this->runAction(this->getNormalAttackAction());
-	this->schedule(schedule_selector(Enemy::attackCallBackAction),1, 20, 0);
-	
+	this->schedule(schedule_selector(Enemy::attackCallBackAction),1, 15, 0);
 }
 void Enemy::attackCallBackAction(float dt)
 {
@@ -74,6 +73,7 @@ void Enemy::attackCallBackAction(float dt)
 
 void Enemy::runDeadAction()
 {
+	this->unschedule(schedule_selector(Enemy::attackCallBackAction));
 	this->stopAllActions();
 	this->runAction(this->getDeadAction());
 	auto gameTipsSprite = global->GgameTipsSprite;
@@ -89,7 +89,7 @@ void Enemy::runDeadAction()
 void Enemy::deadCallBackAction(Node* pSender)
 {
 	this->setVisible(false);
-	global->GdefenderGameLayer->removeChild(this, true);
+	global->GdefenderGameLayer->removeChild(this, true);   //remove the enemy when they are dead
 }
 void Enemy::runWalkAction()
 {

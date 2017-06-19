@@ -56,6 +56,7 @@ void Player::moveToward(Point & pos)
 	//if the target tile isn't valid or is a barrier tile, do nothing
 	if (!m_layer->isValidTileCoord(toPos) || m_layer->isBarrierTile(toPos))
 	{
+		this->setAvail(true);
 		return;
 	}
 
