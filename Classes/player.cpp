@@ -124,14 +124,19 @@ void Player::moveToward(Point & pos)
 			}
 			else
 			{
+				//compare the index step's G score with the step's G score
 				step = m_spOpen.at(index);
 				if ((currStep->getGScore() + moveCost) < step->getGScore())
 				{
+					//set the G score of the index step
 					step->setGScore(currStep->getGScore() + moveCost);
 
+					//retain the step
 					step->retain();
 
+					// erase it from the open list
 					m_spOpen.erase(index);
+					//add it into the open step
 					this->insertInOpenSteps(step);
 					step->release();
 				}
@@ -143,10 +148,12 @@ void Player::moveToward(Point & pos)
 
 void Player::insertInOpenSteps(Player::ShortestPathStep * pPath)
 {
+	//get the F score of the pPath step
 	int stepFScore = pPath->getFScore();
 	size_t count = m_spOpen.size();
 	size_t i = 0;
 
+	//get the position to insert it
 	for (; i < count; ++i)
 	{
 		if (stepFScore <= m_spOpen.at(i)->getFScore())
@@ -157,10 +164,10 @@ void Player::insertInOpenSteps(Player::ShortestPathStep * pPath)
 	m_spOpen.insert(i, pPath);
 }
 
+//compute the H score, the cost from current coord to the target
 int Player::computeHScoreFromCoordToCoord(const Point &fromCoord, const Point &toCoord)
 {
-	//计算当前步骤到目标步骤在水平和垂直方向的步数
-	//不计障碍
+	//ignore the barrier
 	return abs(toCoord.x - fromCoord.x) + abs(toCoord.y - fromCoord.y);
 }
 
@@ -169,6 +176,7 @@ int Player::costToMoveFromStepToAdjacentStep(const Player::ShortestPathStep *fro
 	return 1;
 }
 
+//get the position of the step in the steps vector
 size_t Player::getStepIndex(cocos2d::Vector<Player::ShortestPathStep*>& steps, Player::ShortestPathStep * step)
 {
 	for (size_t i = 0; i < steps.size(); ++i)
@@ -182,6 +190,7 @@ size_t Player::getStepIndex(cocos2d::Vector<Player::ShortestPathStep*>& steps, P
 	return -1;
 }
 
+//get the shorest path and the point array of path
 void Player::constructPathAndStartAnimFromStep(Player::ShortestPathStep * step)
 {
 	m_shortestPath.clear();
@@ -198,6 +207,7 @@ void Player::constructPathAndStartAnimFromStep(Player::ShortestPathStep * step)
 	this->popStepAndAnim();
 }
 
+//move and animation
 void Player::popStepAndAnim()
 {
 	auto currPosOfPlayer = this->getPosition();
@@ -279,7 +289,6 @@ bool Player::ShortestPathStep::initWithPos(const Point & pos)
 
 int Player::ShortestPathStep::getFScore() const
 {
-
 	return this->getGScore() + this->getHScore();
 }
 
