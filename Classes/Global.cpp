@@ -1,5 +1,6 @@
 #include "Global.h"
 
+//declare static variable at the beginning of .cpp 
 DECLARE_SINGLETON_MEMBER(Global);
 Global::Global()
 {}

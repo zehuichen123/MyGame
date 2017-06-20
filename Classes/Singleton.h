@@ -7,8 +7,8 @@ using namespace std;
 template<class T>
 class Singleton {
 public:
-	static inline T* instance();
-	void release();
+	static inline T* instance();			//get the only instance
+	void release();							//release the only instance
 protected:
 	Singleton() {}
 	~Singleton() {}
@@ -36,6 +36,7 @@ void Singleton<T>::release()
 		_instance = NULL;
 	}
 }
-//what 's this???
+//define  DECLARE_SINGLETON_MEMBER(_Ty) using for Global.cpp
+//for you should declare static variable
 #define DECLARE_SINGLETON_MEMBER(_Ty)   \
     template <> _Ty* Singleton<_Ty>::_instance = NULL;
