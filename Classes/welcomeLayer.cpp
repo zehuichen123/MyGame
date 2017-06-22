@@ -31,7 +31,6 @@ void welcomeLayer::onEnter() {
 	{
 		if (UserDefault::sharedUserDefault()->getBoolForKey("isplay", true)) {
 			SimpleAudioEngine::getInstance()->playBackgroundMusic("music/dt.mp3", true);
-			// °ÑÒôÀÖ×´Ì¬ÉèÖÃÎª²¥·Å×´Ì¬
 			UserDefault::sharedUserDefault()->setBoolForKey("isplay", true);
 		}
 	}
