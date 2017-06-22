@@ -15,7 +15,7 @@ public:
 	virtual void onEnter();
 	static Scene* createScene();
 	CREATE_FUNC(welcomeLayer);
-	bool isEffect;
+	//bool isEffect;
 private:
 	bool setUpdateView();
 	void gameOverCallBack(Ref * pSender);
@@ -23,5 +23,5 @@ private:
 	void clickCallBack(Ref* pSender);
 	void coderNameCallBack(Ref* pSender);
 	void playCallBack(Ref * pSender);
-	void play_2CallBcak(Ref* pSender);
+	void play_2CallBack(Ref* pSender);
 };
