@@ -137,7 +137,7 @@ void welcomeLayer::playCallBack(Ref* pSender)
 	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, scene));
 }
 
-void welcomeLayer::play_2CallBcak(Ref* pSender)
+void welcomeLayer::play_2CallBack(Ref* pSender)
 {
 	auto scene = MapLayer::createScene();
 	Director::getInstance()->replaceScene(scene);
