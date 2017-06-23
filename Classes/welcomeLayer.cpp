@@ -107,11 +107,6 @@ void welcomeLayer::gameOverCallBack(Ref* pSender)
 void welcomeLayer::videoCallBack(Ref* pSender) 
 {
 	auto soundToggleMenuItem = (MenuItemToggle*)pSender;
-	//*********************************************
-
-	//****************IMPORTANT********************
-
-	//*********************************************
 	if (soundToggleMenuItem->getSelectedIndex() == 1)
 	{
 		SimpleAudioEngine::getInstance()->stopBackgroundMusic("music/dt.mp3");
